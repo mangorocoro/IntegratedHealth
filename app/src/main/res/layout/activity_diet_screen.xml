@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="@string/progress_bar_label"/>
+
+    <ProgressBar
+        android:id="@+id/diet_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_marginRight="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Starting: 150"
+            android:textSize="15sp"
+            android:layout_weight="0.33"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current: 135"
+            android:textSize="15sp"
+            android:layout_weight="0.33"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Goal: 130"
+            android:textSize="15sp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Food Table"
+        android:textSize="15sp"
+        android:paddingTop="30sp"
+        android:gravity="center"/>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recommendations"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="testing"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:layout_column="2"
+                android:text="nsfifsdaif"
+                android:textSize="15dp"
+                android:gravity="right"
+                />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>
