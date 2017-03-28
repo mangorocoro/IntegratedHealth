@@ -38,6 +38,8 @@ public class HomeScreen extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 	
+	
+
 
         prev_class = getIntent().getStringExtra("currentScenario");
         currentScenarioBox = (TextView) findViewById(R.id.currentScenario);
