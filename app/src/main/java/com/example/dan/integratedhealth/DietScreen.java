@@ -27,8 +27,6 @@ public class DietScreen extends AppCompatActivity{
     private String[] calories;
     private LinkedHashMap<String,String> foods_calories = new LinkedHashMap<String, String>();
     private final static String FOODTEXT = "food.txt";
-    private InputStream foodfile;
-    FileOutputStream outputStream;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +39,7 @@ public class DietScreen extends AppCompatActivity{
         foods = this.getResources().getStringArray(R.array.food_keys);
         calories = this.getResources().getStringArray(R.array.food_values);
 
-        foodfile = getResources().openRawResource(R.raw.food);
+//        foodfile = getResources().openRawResource(R.raw.food);
 
         //sets up the food and calories hashmap
 
@@ -51,22 +49,24 @@ public class DietScreen extends AppCompatActivity{
         }
 
         add_to_food_table("potato");
-        System.out.println(getFilesDir());
-        empty_file(this);
-        write_to_file("potato#90 calories|", this);
-        write_to_file("beans#90 calories|", this);
-        write_to_file("carrots#90 calories|", this);
-        write_to_file("tomatoes#90 calories|", this);
+        //System.out.println(getFilesDir());
+
+        sample_writes(this);
 
         String long_ass_string = read_from_file(this);
 
-        //System.out.println(long_ass_string);
-
-        //System.out.println("----");
         interpret_food_file(long_ass_string);
         add_to_food_table("beans");
 
 
+    }
+
+    public void sample_writes(Context context) {
+        empty_file(context);
+        write_to_file("potato#90 calories|", context);
+        write_to_file("beans#90 calories|", context);
+        write_to_file("carrots#90 calories|", context);
+        write_to_file("tomatoes#90 calories|", context);
     }
 
 
@@ -90,7 +90,7 @@ public class DietScreen extends AppCompatActivity{
 
         new_food.setText(food);
         new_food_calories.setText(get_calories(food));
-        System.out.println(get_calories(food));
+        //System.out.println(get_calories(food));
         new_row.addView(new_food);
         new_row.addView(new_food_calories);
 
@@ -109,7 +109,7 @@ public class DietScreen extends AppCompatActivity{
 
     private void write_to_file(String data,Context context) {
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("food.txt", Context.MODE_APPEND));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(FOODTEXT, Context.MODE_APPEND));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
         }
