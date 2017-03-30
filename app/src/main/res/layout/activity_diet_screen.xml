@@ -3,53 +3,124 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:text="@string/progress_bar_label"
-        android:layout_marginLeft="5sp"
-        android:layout_marginTop="5sp"
-    />
-
-    <ProgressBar
-        android:id="@+id/diet_progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_marginLeft="5sp"
-        android:layout_marginRight="5sp"
-        android:progressDrawable="@drawable/greenprogress"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.19"
+            android:textSize="8sp"
+            android:text="@string/traditional_label"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.18"
+            android:textSize="9sp"
+            android:text="@string/vegetarian_label"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:textSize="9sp"
+            android:text="@string/atkins_label"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:textSize="9sp"
+            android:text="@string/keto_label"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:textSize="9sp"
+            android:text="@string/custom_label"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:layout_marginTop="5sp"
         android:layout_marginLeft="5sp"
         android:layout_marginRight="5sp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Starting: 150"
-            android:textSize="15sp"
-            android:layout_weight="0.33"
-            />
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="5sp"
+            android:layout_marginRight="5sp">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:textSize="15sp"
+                android:text="@string/progress_bar_label"
+
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:textSize="15sp"
+                android:gravity="right"
+                android:text="Verbose"/>
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.41"
+                android:layout_gravity="end"/>
+
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:id="@+id/diet_progress_bar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Current: 135"
-            android:textSize="15sp"
-            android:layout_weight="0.33"/>
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:progressDrawable="@drawable/greenprogress"/>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Goal: 130"
-            android:textSize="15sp"
-            />
+            android:orientation="horizontal"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Starting: 150"
+                android:textSize="15sp"
+                android:layout_weight="0.33"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current: 135"
+                android:textSize="15sp"
+                android:layout_weight="0.33"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Goal: 130"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
@@ -79,6 +150,34 @@
 
         </TableLayout>
     </ScrollView>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="0.1"
+        android:stretchColumns="1"
+        android:layout_marginLeft="3sp"
+        android:layout_marginRight="3sp"
+        android:background="@drawable/border">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/stuff"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="asasd"
+                android:textSize="15sp"/>
+            <TextView
+                android:id="@+id/total_calories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="asdqawaea"
+                android:textSize="15sp"
+                android:layout_gravity="end"/>
+        </TableRow>
+
+    </TableLayout>
+
 
     <TextView
         android:layout_width="match_parent"
