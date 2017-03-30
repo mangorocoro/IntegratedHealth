@@ -25,6 +25,7 @@ public class DietScreen extends AppCompatActivity{
 
     private String[] foods;
     private String[] calories;
+    private int total_calories = 0;
     private LinkedHashMap<String,String> foods_calories = new LinkedHashMap<String, String>();
     private final static String FOODTEXT = "food.txt";
 
@@ -76,8 +77,21 @@ public class DietScreen extends AppCompatActivity{
 
     public void add_to_food_table(String food) {
         TableLayout food_table = (TableLayout) findViewById(R.id.food_table);
-
         food_table.addView(get_food_data(food));
+
+
+        total_calories += strip_calories_string(get_calories(food));
+        update_calories_table();
+    }
+
+    public int strip_calories_string(String calories) {
+        String[] parts = calories.split(" ");
+        return Integer.parseInt(parts[0]);
+    }
+
+    public void update_calories_table(){
+        TextView calories_textview = (TextView) findViewById(R.id.total_calories);
+        calories_textview.setText(String.valueOf(total_calories) + " calories");
     }
 
     public TableRow get_food_data(String food) {
@@ -104,6 +118,25 @@ public class DietScreen extends AppCompatActivity{
     }
 
     public void add_food(String food, int calories) {
+        write_to_file(food + "#" + calories + "|", this);
+    }
+
+    public void remove_food(String food) {
+        foods_calories.remove(food);
+    }
+
+    private void interpret_food_file(String string) {
+
+        //this string will be a giant string, but "|" divides the foods from each other
+        String[] parts = string.split("[|]");
+
+        for (String a: parts) {
+            //now that the string is split into food calorie pairs, need to split again
+            String[] second_parts = a.split("[#]");
+
+            //food = second_parts[0], calories = second_parts[1]
+            foods_calories.put(second_parts[0], second_parts[1]);
+        }
 
     }
 
@@ -145,21 +178,6 @@ public class DietScreen extends AppCompatActivity{
         }
 
         return ret;
-    }
-
-    private void interpret_food_file(String string) {
-
-        //this string will be a giant string, but "|" divides the foods from each other
-        String[] parts = string.split("[|]");
-
-        for (String a: parts) {
-            //now that the string is split into food calorie pairs, need to split again
-            String[] second_parts = a.split("[#]");
-
-            //food = second_parts[0], calories = second_parts[1]
-            foods_calories.put(second_parts[0], second_parts[1]);
-        }
-
     }
 
     private void empty_file(Context context) {
