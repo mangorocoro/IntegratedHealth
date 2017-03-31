@@ -74,6 +74,7 @@
                 android:gravity="right"
                 android:text="Verbose"/>
             <Switch
+                android:id="@+id/verbose_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.41"
@@ -173,7 +174,8 @@
                 android:layout_height="match_parent"
                 android:text="asdqawaea"
                 android:textSize="15sp"
-                android:layout_gravity="end"/>
+                android:layout_gravity="right"
+                android:gravity="right"/>
         </TableRow>
 
     </TableLayout>

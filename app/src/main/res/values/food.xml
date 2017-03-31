@@ -11,4 +11,10 @@
         <item>300 calories</item>
         <item>800 calories</item>
     </string-array>
+
+    <string-array name="verbose_food_values">
+        <item>90 calories, 15g carbs, 10g fat, 5g protein, 3g sugar</item>
+        <item>300 calories, 50g carbs, 30g fat, 5g protein, 40g sugar</item>
+        <item>800 calories, 30g carbs, 50g fat, 45g protein, 5g sugar</item>
+    </string-array>
 </resources>
