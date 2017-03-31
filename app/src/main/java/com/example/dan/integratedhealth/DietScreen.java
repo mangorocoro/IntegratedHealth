@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TableLayout;
@@ -184,7 +186,7 @@ public class DietScreen extends AppCompatActivity{
         TextView new_food = new TextView(this);
         TextView new_food_calories = new TextView(this);
         new_food_calories.setGravity(Gravity.RIGHT);
-
+        new_food_calories.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
         new_food.setText(food);
         new_food_calories.setText(get_calories(food));
         //System.out.println(get_calories(food));
