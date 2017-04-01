@@ -20,14 +20,6 @@ public class HomeScreen extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -53,19 +45,16 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     public void general(View v) {
-        Toast.makeText(this, "you clicked the GENERAL button", Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(this, GeneralActivity.class);
+        Intent intent = new Intent(this, FragmentViewer.class);
         startActivity(intent);
-
-
 
     }
 
     public void diet(View v) {
         Toast.makeText(this, "you clicked the DIET button", Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(this, GeneralActivity.class);
+        Intent intent = new Intent(this, FragmentViewer.class);
         startActivity(intent);
 
     }
@@ -73,10 +62,10 @@ public class HomeScreen extends AppCompatActivity {
     public void fitness(View v) {
         Toast.makeText(this, "you clicked the FITNESS button", Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(this, GeneralActivity.class);
+        Intent intent = new Intent(this, FragmentViewer.class);
         startActivity(intent);
 
-        
+
     }
 
 

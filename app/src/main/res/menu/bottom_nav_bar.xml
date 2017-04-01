@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home_button"
+        android:enabled="true"
+        android:title="@string/home"
+        android:icon="@drawable/smartphonefinger"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/general_button"
+        android:enabled="true"
+        android:title="@string/general"
+        android:icon="@drawable/scale"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/fitness_button"
+        android:enabled="true"
+        android:title="@string/fitness"
+        android:icon="@drawable/muscle"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/diet_button"
+        android:enabled="true"
+        android:title="@string/diet"
+        android:icon="@drawable/applebanana"
+        app:showAsAction="ifRoom"/>
+</menu>
