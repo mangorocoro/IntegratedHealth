@@ -1,5 +1,6 @@
 package com.example.dan.integratedhealth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -49,4 +51,37 @@ public class HomeScreen extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void general(View v) {
+        Toast.makeText(this, "you clicked the GENERAL button", Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, GeneralActivity.class);
+        startActivity(intent);
+
+
+
+    }
+
+    public void diet(View v) {
+        Toast.makeText(this, "you clicked the DIET button", Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, GeneralActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void fitness(View v) {
+        Toast.makeText(this, "you clicked the FITNESS button", Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, GeneralActivity.class);
+        startActivity(intent);
+
+        
+    }
+
+
+
+
+
+
 }
