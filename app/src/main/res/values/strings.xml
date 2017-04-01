@@ -11,8 +11,22 @@
     <string name="fitness">Fitness</string>
     <string name="diet">Diet</string>
 
+
+    <string name="progress_bar_label">Progress Bar</string>
+    <string name="vegetarian_label">Vegetarian</string>
+    <string name="keto_label">Keto</string>
+    <string name="traditional_label">Traditional</string>
+    <string name="vegan_label">Vegan</string>
+    <string name="atkins_label">Atkins</string>
+    <string name="custom_label">Custom</string>
+    <string name="simple_label">Simple</string>
+    <string name="verbose_label">Verbose</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_fragment_viewer">FragmentViewer</string>
+
+
+
 
 </resources>
