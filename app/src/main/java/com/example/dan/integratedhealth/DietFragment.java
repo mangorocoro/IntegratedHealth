@@ -147,6 +147,9 @@ public class DietFragment extends Fragment {
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("Diet Information for " + meta.get("name"));
 
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setTitle("Diet Information for " + meta.get("name"));
+
         return root_view;
     }
 
