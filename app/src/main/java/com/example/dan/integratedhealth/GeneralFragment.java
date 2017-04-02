@@ -16,4 +16,6 @@ public class GeneralFragment extends Fragment {
         View rootView=inflater.inflate(R.layout.fragment_general,container,false);
         return rootView;
     }
+
+
 }

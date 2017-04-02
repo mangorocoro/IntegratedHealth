@@ -12,9 +12,14 @@ import android.view.View;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
+import java.util.HashMap;
+
+
 public class FragmentViewer extends AppCompatActivity implements AHBottomNavigation.OnTabSelectedListener {
 
     AHBottomNavigation bottomNavigation;
+    private String prev_class;
+    HashMap<String, HashMap> taskScenarioData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +30,15 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
 
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnTabSelectedListener(this);
+
+        prev_class = getIntent().getStringExtra("intent");
         this.createNavItems();
+
+
+        //extract hashtable from bundle passed in
+        taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
+        System.out.print("taskScenarioData");
+        System.out.println(taskScenarioData.values());
 
     }
 
@@ -47,7 +60,20 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
         bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#FEFEFE"));
 
         //set current item
-        bottomNavigation.setCurrentItem(2);
+        if (prev_class != null) {
+            switch (prev_class) {
+                case "diet":
+                    bottomNavigation.setCurrentItem(3);
+                    break;
+                case "general":
+                    bottomNavigation.setCurrentItem(1);
+                    break;
+                case "fitness":
+                    bottomNavigation.setCurrentItem(2);
+                    break;
+            }
+            prev_class = "";
+        }
     }
 
 

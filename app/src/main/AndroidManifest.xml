@@ -22,6 +22,10 @@
         <activity
             android:name=".FragmentViewer"
             android:label="@string/title_activity_fragment_viewer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ScenarioPicker"
+            android:label="@string/title_activity_scenario_picker"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

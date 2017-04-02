@@ -124,15 +124,7 @@ public class DietFragment extends Fragment {
 
         System.out.println(get_proteins("beans"));
 
-
-
-
-
-
-
         return root_view;
-
-
     }
 
     public void sample_writes(Context context) {
