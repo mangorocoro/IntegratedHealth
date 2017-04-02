@@ -22,7 +22,6 @@ public class FitnessFragment extends Fragment {
 
     private HashMap<String,HashMap> scenarioData;
     private HashMap<String, String> meta;
-    private HashMap<String, String> diet;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,7 +30,6 @@ public class FitnessFragment extends Fragment {
         if (getArguments()!=null) {
             scenarioData = (HashMap)getArguments().getSerializable("taskScenarioData");
             meta = scenarioData.get("metadata");
-            diet = scenarioData.get("diet");
         }
 
         rootView=inflater.inflate(R.layout.fragment_fitness,container,false);
