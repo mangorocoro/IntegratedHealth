@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Weight(lbs):" />
+
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reps"
+        android:layout_marginTop="96dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:id="@+id/weight_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:src="@drawable/minus_icon"
+        android:layout_below="@+id/textView"
+        android:layout_toStartOf="@+id/Weight"
+        android:layout_marginEnd="36dp" />
+
+    <ImageButton
+        android:id="@+id/weight_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/plus_icon"
+        android:layout_marginStart="38dp"
+        android:layout_alignTop="@+id/Weight"
+        android:layout_toEndOf="@+id/Weight" />
+
+    <ImageButton
+        android:id="@+id/rep_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:src="@drawable/minus_icon"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/weight_minus" />
+
+    <ImageButton
+        android:id="@+id/rep_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/plus_icon"
+        android:layout_alignTop="@+id/rep_minus"
+        android:layout_alignStart="@+id/weight_plus" />
+
+
+
+        <EditText
+            android:id="@+id/Weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="0.0"
+            android:layout_alignTop="@+id/weight_minus"
+            android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/Reps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="0.0"
+        android:layout_alignTop="@+id/rep_minus"
+        android:layout_alignStart="@+id/Weight" />
+
+
+
+</RelativeLayout>

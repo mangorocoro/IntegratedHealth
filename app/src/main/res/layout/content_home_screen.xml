@@ -8,6 +8,21 @@
     tools:context="com.example.dan.integratedhealth.HomeScreen"
     tools:showIn="@layout/activity_home_screen">
 
+    <TextView
+        android:id="@+id/currentScenario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/generalid"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/choose_scenario_btn"
+        app:layout_constraintVertical_bias="0.918" />
+
 
     <ImageView
         android:id="@+id/generalid"
@@ -57,7 +72,21 @@
         app:srcCompat="@drawable/runner"
         app:layout_constraintVertical_bias="0.601" />
 
-
+    <Button
+        android:id="@+id/choose_scenario_btn"
+        android:onClick="pickScenario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Scenario"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/dietid"
+        app:layout_constraintVertical_bias="0.91" />
 
 
 </android.support.constraint.ConstraintLayout>

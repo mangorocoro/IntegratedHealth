@@ -22,11 +22,77 @@
     <string name="simple_label">Simple</string>
     <string name="verbose_label">Verbose</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_fragment_viewer">FragmentViewer</string>
+    <string name="title_activity_scenario_picker">ScenarioPicker</string>
 
 
+    <string-array name="scenarios_array">
+        <item>Fitness - Robert\'s Guided Workout</item>
+        <item>Fitness - Dave\'s Body Building Aspirations</item>
+        <item>Diet - Riley\'s Healthy Meal Plan</item>
+        <item>Diet - Vanessa\'s Health Craze</item>
+        <item>General - George\'s Lazy Physical</item>
+        <item>General - Jimmy\'s Stressed Out!</item>
+        <item>New User</item>
+    </string-array>
+
+
+    <!-- Task Scenario Titles -->
+    <string name="fitness_robert_title">Fitness - Robert\'s Guided Workout</string>
+    <string name="fitness_dave_title">Fitness - Dave\'s Body Building Aspirations</string>
+    <string name="diet_riley_title">Diet - Riley\'s Healthy Meal Plan</string>
+    <string name="diet_vanessa_title">Diet - Vanessa\'s Health Craze</string>
+    <string name="general_george_title">General - George\'s Lazy Physical</string>
+    <string name="general_jimmy_title">General - Jimmy\'s Stressed Out!</string>
+    <string name="new_user_title">New User</string>
+
+    <!-- Task Scenario Descriptions -->
+
+    <string name="fitness_robert">
+        Robert has been going to the gym for a while, but he hasn\'t gotten any more buff.
+        Whenever he goes, he randomly tries some weights and then leaves. He\'s looking for a guided
+        workout that won\'t break the bank.
+    </string>
+
+    <string name="fitness_dave">
+        Dave is an aspiring body builder who used to think that they key to bulking up was eating
+        lots of food. He\'s been eating lots of food, but he feels like he hasn\'t been building
+        muscle as quickly as some other body builders.
+    </string>
+
+    <string name="diet_riley">
+        Riley wants to start eating healthy, but whenever she starts preparing food, she doesn\'t
+        know what is healthy and what isn\'t.
+    </string>
+
+    <string name="diet_vanessa">
+        Vanessa just got into a health craze and is all about eating healthy. She is overwhelmed
+        by the food choices and wants a simple guide to eating a certain way.
+    </string>
+
+    <string name="general_george">
+        George is interested in keeping track of his vitals, but he doesn\'t want to keep going
+        to his primary care physician and waiting all the time. He wants the basics now!
+    </string>
+
+    <string name="general_jimmy">
+        Jimmy gets stressed sometimes. He tries to workout and play sports to get rid of his stress,
+        but sometimes those activities fall short and he is still stressed. He\'s found that
+        listening to soothing music has done wonders to calm him down, but sometimes he is so
+        stressed that opening up his phone, clicking on his music player, and then typing in a
+        soothing song, and then selecting a song to listen to has stressed him out even more.
+        So he tries this app. He knows there is a trigger to play soothing music and all he has
+        to do is click yes when a notification senses he is stressed and the music will play.
+
+    </string>
+
+    <string name="new_user">
+        A new user uses this app for the first time. The data fields will be empty and will populate
+        when the devices and companion apps are connected for full functionality. The app will ask
+        for specific details to fill in for the user to use the app fully.
+    </string>
 
 
 </resources>

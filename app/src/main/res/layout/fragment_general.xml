@@ -258,18 +258,34 @@
     </TableLayout>
 
     <TableLayout
-        android:id="@+id/table_suggestions"
+        android:id="@+id/table_suggestions_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/table_guturine">
+
+        <TextView
+            android:id="@+id/suggestionbox_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Suggestions"
+            android:layout_below="@+id/table_guturine"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:gravity="center_horizontal"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/table_suggestions_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="4"
-        android:layout_below="@id/table_guturine"
+        android:layout_below="@+id/table_suggestions_title"
         android:background="@drawable/border">
-
-        <TableRow>
-
-        </TableRow>
-
     </TableLayout>
+
+
 
 
 </RelativeLayout>
