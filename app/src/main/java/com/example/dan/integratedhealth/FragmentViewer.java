@@ -84,6 +84,8 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
     public boolean onTabSelected(int position, boolean wasSelected) {
 
         meta = (HashMap<String, HashMap>) taskScenarioData.get("metadata");
+        System.out.print("meta is ");
+        System.out.println(meta);
 
         //show fragment
         switch(position) {
