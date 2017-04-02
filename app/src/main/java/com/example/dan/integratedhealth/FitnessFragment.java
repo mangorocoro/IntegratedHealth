@@ -8,14 +8,32 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Button;
 
 
 public class FitnessFragment extends Fragment {
-    @Nullable
-    @Override
+
+
+    private View rootView;
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView=inflater.inflate(R.layout.fragment_fitness,container,false);
+        rootView=inflater.inflate(R.layout.fragment_fitness,container,false);
+
+        final Button button = (Button) rootView.findViewById(R.id.workout);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ExerciseListFragment exerciseListFragment = new ExerciseListFragment();
+                getFragmentManager().beginTransaction().replace(R.id.content_id,exerciseListFragment).commit();
+                // Perform action on click
+            }
+        });
+
+
         return rootView;
     }
+
+
+
+
 }
