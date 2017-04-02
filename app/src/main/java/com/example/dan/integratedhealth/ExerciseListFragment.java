@@ -35,7 +35,8 @@ public class ExerciseListFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_exercise,container,false);
         ListView lv = (ListView) view.findViewById(R.id.main_categories);
         final List<String> exercise = new ArrayList<String>(Arrays.asList(exercise_list));
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, exercise);
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, exercise);
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

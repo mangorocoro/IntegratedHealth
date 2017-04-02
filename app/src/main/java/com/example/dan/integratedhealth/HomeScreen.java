@@ -27,6 +27,10 @@ public class HomeScreen extends AppCompatActivity {
 
     static final int SCENARIO_NUM = 1;  // The request code
 
+    private String prev_class;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +38,53 @@ public class HomeScreen extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        prev_class = getIntent().getStringExtra("currentScenario");
         currentScenarioBox = (TextView) findViewById(R.id.currentScenario);
-        currentScenarioBox.setText(R.string.fitness_robert_title);
 
-        // set a default scenario
-        populateData(1);
+        if (prev_class != null) {
+            currentScenarioBox.setText(R.string.fitness_robert_title);
+            switch (prev_class) {
+                case "Fitness - Robert":
+                    currentScenarioBox.setText(R.string.fitness_robert_title);
+                    populateData(1);
+                    break;
+
+                case "Fitness - Dave":
+                    currentScenarioBox.setText(R.string.fitness_dave_title);
+                    populateData(2);
+                    break;
+
+                case "Diet - Riley":
+                    currentScenarioBox.setText(R.string.diet_riley_title);
+                    populateData(3);
+                    break;
+
+                case "Diet - Vanessa":
+                    currentScenarioBox.setText(R.string.diet_vanessa_title);
+                    populateData(4);
+                    break;
+
+                case "General - George":
+                    currentScenarioBox.setText(R.string.general_george_title);
+                    populateData(5);
+                    break;
+
+                case "General - Jimmy":
+                    currentScenarioBox.setText(R.string.general_jimmy_title);
+                    populateData(6);
+                    break;
+
+                case "newuser":
+                    currentScenarioBox.setText(R.string.new_user_title);
+                    populateData(7);
+                    break;
+
+            }
+        } else { // default scenario
+            currentScenarioBox.setText(R.string.fitness_robert_title);
+            populateData(1);
+        }
+
 
 
     }
@@ -114,13 +160,17 @@ public class HomeScreen extends AppCompatActivity {
         HashMap<String, String> generalData = new HashMap<String, String>();
         HashMap<String, String> dietData = new HashMap<String, String>();
         HashMap<String, String> fitnessData = new HashMap<String, String>();
+        HashMap<String, String> nameAndScenario = new HashMap<String, String>();
 
         switch(tasknum) {
             /* Fitness - Robert */
             case 1:
-                generalData.put("heartrate", "114 bpm");
-                generalData.put("height", "5\' 8\'\'");
-                generalData.put("weight", "190 lbs");
+                nameAndScenario.put("name", "Robert");
+                nameAndScenario.put("scenarioName", "Fitness - Robert");
+
+                generalData.put("heartrate", "114");
+                generalData.put("height", "5 8");
+                generalData.put("weight", "190");
                 generalData.put("guthealth", "No Data");
                 generalData.put("hydration", "Hydrated");
 
@@ -129,9 +179,12 @@ public class HomeScreen extends AppCompatActivity {
 
             /* Fitness - Dave */
             case 2:
-                generalData.put("heartrate", "152 bpm");
-                generalData.put("height", "5\' 10\'\'");
-                generalData.put("weight", "190 lbs");
+                nameAndScenario.put("name", "Dave");
+                nameAndScenario.put("scenarioName", "Fitness - Dave");
+
+                generalData.put("heartrate", "152");
+                generalData.put("height", "5 10");
+                generalData.put("weight", "190");
                 generalData.put("guthealth", "Healthy");
                 generalData.put("hydration", "Hydrated");
 
@@ -140,9 +193,12 @@ public class HomeScreen extends AppCompatActivity {
 
             /* Diet - Riley */
             case 3:
-                generalData.put("heartrate", "100 bpm");
-                generalData.put("height", "5\' 4\'\'");
-                generalData.put("weight", "150 lbs");
+                nameAndScenario.put("name", "Riley");
+                nameAndScenario.put("scenarioName", "Diet - Riley");
+
+                generalData.put("heartrate", "100");
+                generalData.put("height", "5 4");
+                generalData.put("weight", "150");
                 generalData.put("guthealth", "Constipated");
                 generalData.put("hydration", "Dehydrated");
 
@@ -151,9 +207,12 @@ public class HomeScreen extends AppCompatActivity {
 
             /* Diet - Vanessa */
             case 4:
-                generalData.put("heartrate", "120 bpm");
-                generalData.put("height", "5\' 9\'\'");
-                generalData.put("weight", "120 lbs");
+                nameAndScenario.put("name", "Vanessa");
+                nameAndScenario.put("scenarioName", "Diet - Vanessa");
+
+                generalData.put("heartrate", "120");
+                generalData.put("height", "5 9");
+                generalData.put("weight", "120");
                 generalData.put("guthealth", "Healthy");
                 generalData.put("hydration", "Hydrated");
 
@@ -162,9 +221,12 @@ public class HomeScreen extends AppCompatActivity {
 
             /* General - George */
             case 5:
+                nameAndScenario.put("name", "George");
+                nameAndScenario.put("scenarioName", "General - George");
+
                 generalData.put("heartrate", "152");
-                generalData.put("height", "5\' 7\'\'");
-                generalData.put("weight", "140 lbs");
+                generalData.put("height", "5 7");
+                generalData.put("weight", "140");
                 generalData.put("guthealth", "Healthy");
                 generalData.put("hydration", "Dehydrated");
 
@@ -173,9 +235,12 @@ public class HomeScreen extends AppCompatActivity {
 
             /* General - Jimmy */
             case 6:
-                generalData.put("heartrate", "180 bpm");
-                generalData.put("height", "5\' 10\'\'");
-                generalData.put("weight", "140 lbs");
+                nameAndScenario.put("name", "Jimmy");
+                nameAndScenario.put("scenarioName", "General - Jimmy");
+
+                generalData.put("heartrate", "180");
+                generalData.put("height", "5 10");
+                generalData.put("weight", "140");
                 generalData.put("guthealth", "Constipated");
                 generalData.put("hydration", "Dehydrated");
 
@@ -184,6 +249,9 @@ public class HomeScreen extends AppCompatActivity {
 
             /* New User */
             case 7:
+                nameAndScenario.put("name", "newuser");
+                nameAndScenario.put("scenarioName", "newuser");
+
                 generalData.put("heartrate", "please connect fitbit for data");
                 generalData.put("height", "please input height");
                 generalData.put("weight", "please input weight");
@@ -196,6 +264,7 @@ public class HomeScreen extends AppCompatActivity {
         }
 
         taskscenario.put("general", generalData);
+        taskscenario.put("metadata", nameAndScenario);
 
     }
 
