@@ -53,6 +53,8 @@ public class DietFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+
         //setContentView(R.layout.activity_diet_screen);
 
     }
@@ -137,6 +139,10 @@ public class DietFragment extends Fragment {
         add_to_food_table("beans");
 
         System.out.println(get_proteins("beans"));
+        add_to_food_table("steak");
+        add_to_food_table("steak");
+        add_to_food_table("steak");
+        add_to_food_table("steak");
 
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("Diet Information for " + meta.get("name"));
@@ -210,10 +216,10 @@ public class DietFragment extends Fragment {
     //potato        90 cals
     public TableRow get_food_data(String food) {
 
-        TableRow new_row = new TableRow(getActivity().getApplicationContext());
+        TableRow new_row = new TableRow(getActivity());
 
-        TextView new_food = new TextView(getActivity().getApplicationContext());
-        TextView new_food_calories = new TextView(getActivity().getApplicationContext());
+        TextView new_food = new TextView(getActivity());
+        TextView new_food_calories = new TextView(getActivity());
         new_food_calories.setGravity(Gravity.RIGHT);
         //the new LayoutParams needs to be set to the PARENT. in this case, needs to be set to tablerow
         new_food_calories.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
