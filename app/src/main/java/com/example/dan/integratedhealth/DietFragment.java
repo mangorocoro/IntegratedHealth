@@ -140,6 +140,9 @@ public class DietFragment extends Fragment {
 
         System.out.println(get_proteins("beans"));
         add_to_food_table("steak");
+        add_to_food_table("steak");
+        add_to_food_table("steak");
+        add_to_food_table("steak");
 
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("Diet Information for " + meta.get("name"));
