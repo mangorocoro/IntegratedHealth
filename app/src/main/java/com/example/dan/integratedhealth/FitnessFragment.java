@@ -5,10 +5,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import java.util.HashMap;
 
 
 public class FitnessFragment extends Fragment {
@@ -16,8 +20,18 @@ public class FitnessFragment extends Fragment {
 
     private View rootView;
 
+    private HashMap<String,HashMap> scenarioData;
+    private HashMap<String, String> meta;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        scenarioData = new HashMap<>();
+        if (getArguments()!=null) {
+            scenarioData = (HashMap)getArguments().getSerializable("taskScenarioData");
+            meta = scenarioData.get("metadata");
+        }
+
         rootView=inflater.inflate(R.layout.fragment_fitness,container,false);
 
         final Button button = (Button) rootView.findViewById(R.id.workout);
@@ -30,6 +44,8 @@ public class FitnessFragment extends Fragment {
         });
 
 
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setTitle("Fitness Information for " + meta.get("name"));
         return rootView;
     }
 

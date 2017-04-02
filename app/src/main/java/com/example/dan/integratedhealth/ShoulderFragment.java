@@ -26,7 +26,7 @@ public class ShoulderFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_shoulder, container, false);
         ListView lv = (ListView) view.findViewById(R.id.shoulders);
         final List<String> exercise = new ArrayList<String>(Arrays.asList(shoulder_list));
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.mylist, R.id.Itemname, exercise);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.mylist, R.id.Itemname, exercise);
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

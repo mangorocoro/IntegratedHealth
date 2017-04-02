@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 
@@ -42,6 +45,9 @@ public class DietFragment extends Fragment {
     private Switch mySwitch;
     private View root_view;
 
+    private HashMap<String,HashMap> scenarioData;
+    private HashMap<String, String> meta;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,14 @@ public class DietFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        scenarioData = new HashMap<>();
+        if (getArguments()!=null) {
+            scenarioData = (HashMap)getArguments().getSerializable("taskScenarioData");
+            meta = scenarioData.get("metadata");
+        }
+
+
         root_view=inflater.inflate(R.layout.fragment_diet,container,false);
 
         ProgressBar progress_bar = (ProgressBar) root_view.findViewById(R.id.diet_progress_bar);
@@ -126,6 +140,9 @@ public class DietFragment extends Fragment {
 
         System.out.println(get_proteins("beans"));
         add_to_food_table("steak");
+
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setTitle("Diet Information for " + meta.get("name"));
 
         return root_view;
     }
