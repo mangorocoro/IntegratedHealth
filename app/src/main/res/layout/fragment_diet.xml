@@ -53,7 +53,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/border"
-                android:layout_marginTop="5sp"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp">
 
@@ -61,7 +60,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5sp"
-                    android:layout_marginTop="5sp"
                     android:layout_marginRight="5sp">
 
                     <TextView
@@ -70,7 +68,6 @@
                         android:layout_weight="0.33"
                         android:textSize="15sp"
                         android:text="@string/progress_bar_label"
-
                         />
                     <TextView
                         android:id="@+id/verbose_textview"
@@ -147,6 +144,7 @@
                 android:layout_marginBottom="3sp"
                 android:layout_marginLeft="3sp"
                 android:layout_marginRight="3sp"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
                 >
 
                 <android.support.v4.widget.NestedScrollView
@@ -159,6 +157,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:stretchColumns="1">
+
+
 
                     </TableLayout>
                 </android.support.v4.widget.NestedScrollView>
@@ -174,12 +174,24 @@
                 android:background="@drawable/border">
 
                 <TableRow>
-                    <TextView
-                        android:id="@+id/stuff"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="asasd"
-                        android:textSize="15sp"/>
+                    <TableRow>
+                        <Button
+                            android:id="@+id/food_table_add_row_button"
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            android:text="Add Food"
+                            android:textSize="8sp"
+                            android:background="@android:drawable/ic_menu_edit"
+                            />
+                        <Button
+                            android:id="@+id/food_table_del_row_button"
+                            android:layout_width="35sp"
+                            android:layout_height="30sp"
+                            android:text="Remove Food"
+                            android:textSize="8sp"
+                            android:background="@android:drawable/ic_menu_delete"
+                            />
+                    </TableRow>
                     <TextView
                         android:id="@+id/total_calories"
                         android:layout_width="wrap_content"
