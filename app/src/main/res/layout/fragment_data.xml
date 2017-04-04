@@ -57,25 +57,51 @@
         android:layout_alignStart="@+id/weight_plus" />
 
 
-
-        <EditText
-            android:id="@+id/Weight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:hint="0.0"
-            android:layout_alignTop="@+id/weight_minus"
-            android:layout_centerHorizontal="true" />
+    <EditText
+        android:id="@+id/Weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/weight_minus"
+        android:layout_centerHorizontal="true"
+        android:hint="0"
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/Reps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:hint="0.0"
+        android:layout_alignStart="@+id/Weight"
         android:layout_alignTop="@+id/rep_minus"
-        android:layout_alignStart="@+id/Weight" />
+        android:hint="0"
+        android:inputType="numberDecimal" />
 
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/rep_minus"
+        android:layout_centerVertical="true"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/rep_plus"
+        android:layout_alignTop="@+id/save"
+        android:text="Clear" />
+
+    <TableLayout
+        android:id="@+id/log_table"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/save"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:stretchColumns="0,1">
+
+    </TableLayout>
 
 
 </RelativeLayout>
