@@ -21,6 +21,22 @@
     <string name="custom_label">Custom</string>
     <string name="simple_label">Simple</string>
     <string name="verbose_label">Verbose</string>
+    <string name="add_food_label_message">Add Food</string>
+    <string name="food_label">Food Name</string>
+    <string name="calories_label">Calories</string>
+    <string name="macronutrients_label">Macronutrients</string>
+    <string name="food_name_hint">Bread</string>
+    <string name="calories_hint">150</string>
+    <string name="protein_hint">9</string>
+    <string name="carbs_hint">15</string>
+    <string name="sugars_hint">10</string>
+    <string name="fats_hint">10</string>
+    <string name="carbs_label">Carbohydrates</string>
+    <string name="protein_label">Protein</string>
+    <string name="fats_label">Fats</string>
+    <string name="sugars_label">Sugars</string>
+    <string name="save_button_label">Save</string>
+    <string name="cancel_button_label">Cancel</string>
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>

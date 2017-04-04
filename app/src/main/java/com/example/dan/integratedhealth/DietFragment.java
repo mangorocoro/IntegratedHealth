@@ -1,16 +1,21 @@
 package com.example.dan.integratedhealth;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -29,7 +34,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 
-public class DietFragment extends Fragment {
+public class DietFragment extends Fragment implements View.OnClickListener{
 
     private String[] foods;
     private String[] calories;
@@ -44,6 +49,14 @@ public class DietFragment extends Fragment {
     private final static String FOODTEXT = "food.txt";
     private Switch mySwitch;
     private View root_view;
+    public static final int REQUEST_CODE_ADD_FOOD = 90;
+
+    private int added_fats;
+    private int added_proteins;
+    private int added_carbs;
+    private int added_sugars;
+    private String added_food_name;
+    private int added_calories;
 
     private HashMap<String,HashMap> scenarioData;
     private HashMap<String, String> meta;
@@ -71,6 +84,14 @@ public class DietFragment extends Fragment {
 
 
         root_view=inflater.inflate(R.layout.fragment_diet,container,false);
+
+        //add_food_view = inflater.inflate(R.layout.fragment_addfood, container, false);
+
+        Button food_table_add_row = (Button) root_view.findViewById(R.id.food_table_add_row_button);
+        food_table_add_row.setOnClickListener(this);
+
+        Button food_table_del_row = (Button) root_view.findViewById(R.id.food_table_del_row_button);
+        food_table_del_row.setOnClickListener(this);
 
         ProgressBar progress_bar = (ProgressBar) root_view.findViewById(R.id.diet_progress_bar);
         progress_bar.setProgress(90);
@@ -104,8 +125,10 @@ public class DietFragment extends Fragment {
                             TableRow food_table_row = (TableRow) table_row;
                             TextView food_item = (TextView) food_table_row.getChildAt(0);
                             TextView calories_view = (TextView) food_table_row.getChildAt(1);
-                            calories_view.setText(get_macronutrients(food_item.getText().toString()));
-                            update_table_to_verbose();
+                            if (calories_view != null) {
+                                calories_view.setText(get_macronutrients(food_item.getText().toString()));
+                                update_table_to_verbose();
+                            }
                             verbose_textview.setText(R.string.verbose_label);
                         }
                     }
@@ -117,8 +140,10 @@ public class DietFragment extends Fragment {
                             TableRow food_table_row = (TableRow) table_row;
                             TextView food_item = (TextView) food_table_row.getChildAt(0);
                             TextView calories_view = (TextView) food_table_row.getChildAt(1);
-                            calories_view.setText(get_calories(food_item.getText().toString()));
-                            update_calories_table();
+                            if (calories_view != null) {
+                                calories_view.setText(get_calories(food_item.getText().toString()));
+                                update_calories_table();
+                            }
                             verbose_textview.setText(R.string.simple_label);
                         }
                     }
@@ -148,6 +173,21 @@ public class DietFragment extends Fragment {
         actionBar.setTitle("Diet Information for " + meta.get("name"));
 
         return root_view;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch(v.getId()) {
+            case R.id.food_table_del_row_button:
+                break;
+            case R.id.food_table_add_row_button:
+
+                Intent add_food = new Intent(getActivity().getApplicationContext(), AddFoodFragment.class);
+                startActivityForResult(add_food, REQUEST_CODE_ADD_FOOD);
+                break;
+        }
+
     }
 
     public void sample_writes(Context context) {
@@ -271,8 +311,9 @@ public class DietFragment extends Fragment {
         return sugars;
     }
 
-    public void add_food(String food, int calories) {
-        write_to_file(food + "#" + calories + "|", getActivity().getApplicationContext());
+    public void add_food(String food, int calories, int fat, int protein, int carb, int sugar) {
+        //write_to_file("potato#90 calories#90 calories, 15g carbs, 10g fat, 5g protein, 3g sugar|", context);
+        write_to_file(food + "#" + calories + "calories#"  + calories + " calories," + carb +"g carbs, " + fat + "g fat, " + protein + "g protein, " + sugar + "g sugar|", getActivity().getApplicationContext());
     }
 
     public void remove_food(String food) {
@@ -349,7 +390,29 @@ public class DietFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADD_FOOD) {
+            if (resultCode == Activity.RESULT_OK) {
+                added_fats = Integer.parseInt(data.getCharSequenceExtra("FATS").toString());
+                added_proteins = Integer.parseInt(data.getCharSequenceExtra("PROTEINS").toString());
+                added_carbs = Integer.parseInt(data.getCharSequenceExtra("CARBS").toString());
+                added_sugars = Integer.parseInt(data.getCharSequenceExtra("SUGARS").toString());
+                added_calories = Integer.parseInt(data.getCharSequenceExtra("CALORIES").toString());
+                added_food_name = data.getCharSequenceExtra("FOOD_NAME").toString();
+                add_food(added_food_name, added_calories, added_fats, added_proteins, added_carbs, added_sugars);
+                interpret_food_file(read_from_file(getActivity().getApplicationContext()));
+                add_to_food_table(added_food_name);
 
-
+                added_fats = 0;
+                added_proteins = 0;
+                added_carbs = 0;
+                added_sugars = 0;
+                added_calories = 0;
+                added_food_name = "";
+            }
+        }
+    }
 
 }
