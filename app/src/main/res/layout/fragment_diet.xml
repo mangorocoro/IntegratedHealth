@@ -191,6 +191,14 @@
                             android:textSize="8sp"
                             android:background="@android:drawable/ic_menu_delete"
                             />
+                        <Button
+                            android:id="@+id/food_table_cancel_button"
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            android:text="Cancel"
+                            android:textSize="8sp"
+                            android:visibility="gone"
+                            />
                     </TableRow>
                     <TextView
                         android:id="@+id/total_calories"

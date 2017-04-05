@@ -95,6 +95,9 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         Button food_table_del_row = (Button) root_view.findViewById(R.id.food_table_del_row_button);
         food_table_del_row.setOnClickListener(this);
 
+        Button food_table_cancel_button = (Button) root_view.findViewById(R.id.food_table_cancel_button);
+        food_table_cancel_button.setOnClickListener(this);
+
         ProgressBar progress_bar = (ProgressBar) root_view.findViewById(R.id.diet_progress_bar);
         progress_bar.setProgress(90);
 
@@ -184,16 +187,32 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
 
         switch(v.getId()) {
-            case R.id.food_table_del_row_button:
+            case R.id.food_table_cancel_button:
                 TableLayout food_table = (TableLayout) root_view.findViewById(R.id.food_table);
                 for (int index = 0; index < food_table.getChildCount(); index++) {
                     View table_row = food_table.getChildAt(index);
                     if (table_row instanceof TableRow) {
                         TableRow food_table_row = (TableRow) table_row;
                         Button remove_button = (Button) food_table_row.getChildAt(0);
+                        remove_button.setVisibility(View.GONE);
+                        //System.out.println("hello?");
+                    }
+                }
+                Button food_table_cancel_button = (Button) root_view.findViewById(R.id.food_table_cancel_button);
+                food_table_cancel_button.setVisibility(View.GONE);
+                break;
+            case R.id.food_table_del_row_button:
+                TableLayout del_food_table = (TableLayout) root_view.findViewById(R.id.food_table);
+                for (int index = 0; index < del_food_table.getChildCount(); index++) {
+                    View table_row = del_food_table.getChildAt(index);
+                    if (table_row instanceof TableRow) {
+                        TableRow food_table_row = (TableRow) table_row;
+                        Button remove_button = (Button) food_table_row.getChildAt(0);
                         remove_button.setVisibility(View.VISIBLE);
                     }
                 }
+                Button cancel_button = (Button) root_view.findViewById(R.id.food_table_cancel_button);
+                cancel_button.setVisibility(View.VISIBLE);
                 break;
             case R.id.food_table_add_row_button:
 
@@ -269,12 +288,13 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
         final TableRow new_row = new TableRow(getActivity());
 
-        final Button remove_button = new Button(getActivity());
+        Button remove_button = new Button(getActivity());
         remove_button.setVisibility(View.GONE);
         remove_button.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v) {
-                        if (remove_button.getVisibility() != View.GONE) {
+                        //remove button gone means it is really gone
+                        //if (remove_button.getVisibility() != View.GONE) {
                             TableLayout food_table = (TableLayout) root_view.findViewById(R.id.food_table);
                             for (int index = 0; index < food_table.getChildCount(); index++) {
                                 View table_row = food_table.getChildAt(index);
@@ -285,7 +305,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                                 }
                             }
                             //food_table.removeView(new_row);
-                        }
+                        //}
                     }
                 });
 
@@ -403,6 +423,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                         update_calories_table();
                     }
                     food_table.removeView(food_table_row);
+                    break;
                 }
             }
         }
