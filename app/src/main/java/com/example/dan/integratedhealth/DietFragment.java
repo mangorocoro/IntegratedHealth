@@ -40,6 +40,7 @@ import static android.view.View.GONE;
 
 public class DietFragment extends Fragment implements View.OnClickListener{
 
+
     private String[] foods;
     private String[] calories;
     private String[] macronutrients;
