@@ -51,7 +51,6 @@ public class GeneralFragment extends Fragment {
         suggestions();
 
 
-
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("General Health for " + meta.get("name"));
 
@@ -107,7 +106,6 @@ public class GeneralFragment extends Fragment {
         } else {
             return "no data";
         }
-
     }
 
 
