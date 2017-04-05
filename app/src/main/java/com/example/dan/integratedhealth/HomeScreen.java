@@ -174,6 +174,8 @@ public class HomeScreen extends AppCompatActivity {
                 generalData.put("guthealth", "No Data");
                 generalData.put("hydration", "Hydrated");
 
+                dietData.put("goalweight", "180");
+
                 currentScenarioBox.setText(R.string.fitness_robert_title);
                 break;
 
@@ -187,6 +189,8 @@ public class HomeScreen extends AppCompatActivity {
                 generalData.put("weight", "190");
                 generalData.put("guthealth", "Healthy");
                 generalData.put("hydration", "Hydrated");
+
+                dietData.put("goalweight", "210");
 
                 currentScenarioBox.setText(R.string.fitness_dave_title);
                 break;
@@ -202,6 +206,8 @@ public class HomeScreen extends AppCompatActivity {
                 generalData.put("guthealth", "Constipated");
                 generalData.put("hydration", "Dehydrated");
 
+                dietData.put("goalweight", "145");
+
                 currentScenarioBox.setText(R.string.diet_riley_title);
                 break;
 
@@ -215,6 +221,8 @@ public class HomeScreen extends AppCompatActivity {
                 generalData.put("weight", "120");
                 generalData.put("guthealth", "Healthy");
                 generalData.put("hydration", "Hydrated");
+
+                dietData.put("goalweight", "115");
 
                 currentScenarioBox.setText(R.string.diet_vanessa_title);
                 break;
@@ -230,6 +238,8 @@ public class HomeScreen extends AppCompatActivity {
                 generalData.put("guthealth", "Healthy");
                 generalData.put("hydration", "Dehydrated");
 
+                dietData.put("goalweight", "145");
+
                 currentScenarioBox.setText(R.string.general_george_title);
                 break;
 
@@ -243,6 +253,8 @@ public class HomeScreen extends AppCompatActivity {
                 generalData.put("weight", "140");
                 generalData.put("guthealth", "Constipated");
                 generalData.put("hydration", "Dehydrated");
+
+                dietData.put("goalweight", "150");
 
                 currentScenarioBox.setText(R.string.general_jimmy_title);
                 break;
@@ -258,6 +270,8 @@ public class HomeScreen extends AppCompatActivity {
                 generalData.put("guthealth", "no data");
                 generalData.put("hydration", "no data");
 
+                dietData.put("goalweight", "please input goal weight");
+
                 currentScenarioBox.setText(R.string.new_user_title);
                 break;
 
@@ -265,6 +279,7 @@ public class HomeScreen extends AppCompatActivity {
 
         taskscenario.put("general", generalData);
         taskscenario.put("metadata", nameAndScenario);
+        taskscenario.put("diet", dietData);
 
     }
 
