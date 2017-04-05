@@ -33,6 +33,8 @@ import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import static android.view.View.GONE;
+
 
 public class DietFragment extends Fragment implements View.OnClickListener{
 
@@ -123,8 +125,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                         View table_row = food_table.getChildAt(i);
                         if (table_row instanceof TableRow) {
                             TableRow food_table_row = (TableRow) table_row;
-                            TextView food_item = (TextView) food_table_row.getChildAt(0);
-                            TextView calories_view = (TextView) food_table_row.getChildAt(1);
+                            TextView food_item = (TextView) food_table_row.getChildAt(1);
+                            TextView calories_view = (TextView) food_table_row.getChildAt(2);
                             if (calories_view != null) {
                                 calories_view.setText(get_macronutrients(food_item.getText().toString()));
                                 update_table_to_verbose();
@@ -138,8 +140,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                         View table_row = food_table.getChildAt(i);
                         if (table_row instanceof TableRow) {
                             TableRow food_table_row = (TableRow) table_row;
-                            TextView food_item = (TextView) food_table_row.getChildAt(0);
-                            TextView calories_view = (TextView) food_table_row.getChildAt(1);
+                            TextView food_item = (TextView) food_table_row.getChildAt(1);
+                            TextView calories_view = (TextView) food_table_row.getChildAt(2);
                             if (calories_view != null) {
                                 calories_view.setText(get_calories(food_item.getText().toString()));
                                 update_calories_table();
@@ -183,6 +185,15 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
         switch(v.getId()) {
             case R.id.food_table_del_row_button:
+                TableLayout food_table = (TableLayout) root_view.findViewById(R.id.food_table);
+                for (int index = 0; index < food_table.getChildCount(); index++) {
+                    View table_row = food_table.getChildAt(index);
+                    if (table_row instanceof TableRow) {
+                        TableRow food_table_row = (TableRow) table_row;
+                        Button remove_button = (Button) food_table_row.getChildAt(0);
+                        remove_button.setVisibility(View.VISIBLE);
+                    }
+                }
                 break;
             case R.id.food_table_add_row_button:
 
@@ -251,15 +262,32 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    //    public void update_total_table(){
-    //        TextView calories_textview = (TextView) findViewById(R.id.total_calories);
-    //    }
 
     //creates the table row for the food table that will show the food's name and food's calories
     //potato        90 cals
     public TableRow get_food_data(String food) {
 
-        TableRow new_row = new TableRow(getActivity());
+        final TableRow new_row = new TableRow(getActivity());
+
+        final Button remove_button = new Button(getActivity());
+        remove_button.setVisibility(View.GONE);
+        remove_button.setOnClickListener(
+                new View.OnClickListener(){
+                    public void onClick(View v) {
+                        if (remove_button.getVisibility() != View.GONE) {
+                            TableLayout food_table = (TableLayout) root_view.findViewById(R.id.food_table);
+                            for (int index = 0; index < food_table.getChildCount(); index++) {
+                                View table_row = food_table.getChildAt(index);
+                                if (table_row == new_row) {
+                                    TableRow food_table_row = (TableRow) table_row;
+                                    TextView food_name = (TextView) food_table_row.getChildAt(1);
+                                    remove_food(food_name.getText().toString());
+                                }
+                            }
+                            //food_table.removeView(new_row);
+                        }
+                    }
+                });
 
         TextView new_food = new TextView(getActivity());
         TextView new_food_calories = new TextView(getActivity());
@@ -269,6 +297,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         new_food.setText(food);
         new_food_calories.setText(get_calories(food));
         //System.out.println(get_calories(food));
+        new_row.addView(remove_button);
         new_row.addView(new_food);
         new_row.addView(new_food_calories);
 
@@ -283,6 +312,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     }
 
     public String get_macronutrients(String food) {
+
         return verbose_foods_calories.get(food);
     }
 
@@ -314,13 +344,69 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         return sugars;
     }
 
+    public double get_proteins_double(String food) {
+        String macros = get_macronutrients(food);
+        System.out.println("--->" + macros);
+        String[] macros_array = macros.split(",");
+        return Double.parseDouble(macros_array[3].trim().split(" ")[0].replace("g", ""));
+    }
+
+    public double get_carbs_double(String food) {
+        String macros = get_macronutrients(food);
+        String[] macros_array = macros.split(",");
+        return Double.parseDouble(macros_array[1].trim().split(" ")[0].replace("g", ""));
+    }
+
+    public double get_fats_double(String food) {
+        String macros = get_macronutrients(food);
+        String[] macros_array = macros.split(",");
+        return Double.parseDouble(macros_array[2].trim().split(" ")[0].replace("g", ""));
+    }
+
+    public double get_sugars_double(String food) {
+        String macros = get_macronutrients(food);
+        String[] macros_array = macros.split(",");
+        return Double.parseDouble(macros_array[4].trim().split(" ")[0].replace("g", ""));
+    }
+
+
     public void add_food(String food, int calories, int fat, int protein, int carb, int sugar) {
         //write_to_file("potato#90 calories#90 calories, 15g carbs, 10g fat, 5g protein, 3g sugar|", context);
-        write_to_file(food + "#" + calories + "calories#"  + calories + " calories," + carb +"g carbs, " + fat + "g fat, " + protein + "g protein, " + sugar + "g sugar|", getActivity().getApplicationContext());
+        write_to_file(food + "#" + calories + " calories#"  + calories + " calories," + carb +"g carbs, " + fat + "g fat, " + protein + "g protein, " + sugar + "g sugar|", getActivity().getApplicationContext());
     }
 
     public void remove_food(String food) {
-        foods_calories.remove(food);
+
+
+
+        TableLayout food_table = (TableLayout) root_view.findViewById(R.id.food_table);
+        for (int index = 0; index < food_table.getChildCount(); index++) {
+            View table_row = food_table.getChildAt(index);
+            if (table_row instanceof TableRow) {
+                TableRow food_table_row = (TableRow) table_row;
+                TextView food_item = (TextView) food_table_row.getChildAt(1);
+                //TextView calories_row = (TextView) food_table.getChildAt(1);
+                if (food_item.getText().equals(food)) {
+
+                    mySwitch = (Switch) root_view.findViewById(R.id.verbose_switch);
+                    //switch is on
+
+
+                    total_proteins -= get_proteins_double(food);
+                    total_carbs -= get_carbs_double(food);
+                    total_sugars -= get_sugars_double(food);
+                    total_fats -= get_fats_double(food);
+                    total_calories -= strip_calories_string(get_calories(food));
+                    if (mySwitch.isChecked()) {
+                        update_table_to_verbose();
+                    } else {
+                        update_calories_table();
+                    }
+                    food_table.removeView(food_table_row);
+                }
+            }
+        }
+
     }
 
     private void interpret_food_file(String string) {
