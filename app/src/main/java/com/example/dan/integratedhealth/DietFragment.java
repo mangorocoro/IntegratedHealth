@@ -261,6 +261,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                         //System.out.println("hello?");
                     }
                 }
+
                 Button food_table_cancel_button = (Button) root_view.findViewById(R.id.food_table_cancel_button);
                 food_table_cancel_button.setVisibility(View.GONE);
                 break;
