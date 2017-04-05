@@ -47,6 +47,7 @@ public class DietFragment extends Fragment {
 
     private HashMap<String,HashMap> scenarioData;
     private HashMap<String, String> meta;
+    private HashMap<String, String> diet;
 
 
     @Override
@@ -67,6 +68,7 @@ public class DietFragment extends Fragment {
         if (getArguments()!=null) {
             scenarioData = (HashMap)getArguments().getSerializable("taskScenarioData");
             meta = scenarioData.get("metadata");
+            diet = scenarioData.get("diet");
         }
 
 
