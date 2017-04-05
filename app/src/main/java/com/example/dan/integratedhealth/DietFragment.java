@@ -78,6 +78,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     private int goal_carbs = 0;
     private int goal_sugars = 0;
 
+    private String diet_plan = "traditional";
+
     private HashMap<String,HashMap> scenarioData;
     private HashMap<String, String> meta;
     private HashMap<String, String> diet;
@@ -196,6 +198,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
         });
 
+        setup_recommendations();
+
         //add_to_food_table("potato");
         //sample_writes(getActivity().getApplicationContext());
 
@@ -230,6 +234,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 goal_fats = 50;
                 goal_proteins = 150;
                 goal_sugars = 20;
+                diet_plan = "traditional";
+                setup_recommendations();
                 update_macronutrients();
                 add_goal_macros_to_file();
                 break;
@@ -239,6 +245,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 goal_fats = 20;
                 goal_proteins = 100;
                 goal_sugars = 20;
+                diet_plan = "vegetarian";
+                setup_recommendations();
                 update_macronutrients();
                 add_goal_macros_to_file();
                 break;
@@ -248,6 +256,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 goal_fats = 50;
                 goal_proteins = 300;
                 goal_sugars = 200;
+                diet_plan = "atkins";
+                setup_recommendations();
                 update_macronutrients();
                 add_goal_macros_to_file();
                 break;
@@ -257,11 +267,15 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 goal_fats = 10;
                 goal_proteins = 100;
                 goal_sugars = 50;
+                diet_plan = "keto";
+                setup_recommendations();
                 update_macronutrients();
                 add_goal_macros_to_file();
                 break;
 
             case R.id.custom_button:
+                diet_plan = "traditional";
+                setup_recommendations();
                 Intent custom_macros = new Intent(getActivity().getApplicationContext(), CustomMacrosActivity.class);
                 startActivityForResult(custom_macros, REQUEST_CODE_CUSTOM_MACROS);
                 break;
@@ -304,10 +318,67 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    public void setup_recommendations(){
+        TableLayout recommendations_table = (TableLayout) root_view.findViewById(R.id.recommendations);
+        String[] recipes;
+
+        if (recommendations_table.getChildCount() > 0) {
+            recommendations_table.removeAllViews();
+        }
+
+        switch(diet_plan){
+            case "traditional":
+                recipes = this.getResources().getStringArray(R.array.food_traditional);
+                break;
+            case "vegetarian":
+                recipes = this.getResources().getStringArray(R.array.food_vegetarian);
+                break;
+            case "atkins":
+                recipes = this.getResources().getStringArray(R.array.food_atkins);
+                break;
+            case "keto":
+                recipes = this.getResources().getStringArray(R.array.food_keto);
+                break;
+            case "custom":
+                recipes = this.getResources().getStringArray(R.array.food_traditional);
+                break;
+            default:
+                recipes = this.getResources().getStringArray(R.array.food_traditional);
+                break;
+        }
+
+
+
+        for (int index = 0; index < recipes.length; index++) {
+            final String curr_food = recipes[index];
+            TableRow new_row = new TableRow(getActivity());
+            TextView new_food_suggestion = new TextView(getActivity());
+            Button add_food_suggestion = new Button(getActivity());
+            add_food_suggestion.setGravity(Gravity.RIGHT);
+            add_food_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            add_food_suggestion.setOnClickListener(new View.OnClickListener(){
+
+                public void onClick(View v) {
+                    add_food(curr_food, 200, 200, 200, 200, 200, "food.txt");
+                    interpret_food_file(read_from_file(getActivity().getApplicationContext(), "food.txt"), false);
+                    add_to_food_table(curr_food);
+                    add_food(curr_food, 200, 200, 200, 200, 200, meta.get("name") + ".txt");
+                }
+            });
+
+            new_food_suggestion.setText(curr_food);
+            new_food_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            new_row.addView(new_food_suggestion);
+            new_row.addView(add_food_suggestion);
+            recommendations_table.addView(new_row);
+        }
+
+    }
+
 
 
     public String get_goal_macros() {
-        return goal_carbs + " " + goal_fats + " " + goal_proteins + " " + goal_sugars + " " +warning;
+        return goal_carbs + " " + goal_fats + " " + goal_proteins + " " + goal_sugars + " " +warning + " " + diet_plan;
     }
 
     public void startup() {
@@ -317,6 +388,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         interpret_food_file(read_from_file(getActivity().getApplicationContext(), meta.get("name") + ".txt"), true);
         interpret_goal_macros_file(read_from_file(getActivity().getApplicationContext(), meta.get("name") + "2.txt"));
         update_macronutrients();
+        setup_recommendations();
 
 
     }
@@ -333,6 +405,10 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
         if (macros.length > 4) {
             warning = Boolean.valueOf(macros[4]);
+        }
+
+        if (macros.length > 5) {
+            diet_plan = macros[5];
         }
     }
 
@@ -597,6 +673,11 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                     total_sugars -= get_sugars_double(food);
                     total_fats -= get_fats_double(food);
                     total_calories -= strip_calories_string(get_calories(food));
+
+                    if (total_proteins < goal_proteins && total_carbs < goal_carbs && total_sugars < goal_sugars && total_fats < goal_fats) {
+                        warning = false;
+                        add_goal_macros_to_file();
+                    }
 
                     update_macronutrients();
 
