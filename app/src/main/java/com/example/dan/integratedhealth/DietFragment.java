@@ -11,6 +11,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
+import android.text.TextUtils;
+import android.text.method.TransformationMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +46,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static android.view.View.GONE;
+import static android.view.View.SCROLL_INDICATOR_RIGHT;
 
 
 public class DietFragment extends Fragment implements View.OnClickListener{
@@ -169,8 +172,11 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                             TextView calories_view = (TextView) food_table_row.getChildAt(2);
                             if (calories_view != null) {
                                 calories_view.setText(get_macronutrients(food_item.getText().toString()));
+                                //calories_view.setEllipsize(TextUtils.TruncateAt.START);
                                 //calories_view.setText(get_calories(food_item.getText().toString()));
                                 update_table_to_verbose();
+
+
                             }
                         }
                     }
@@ -565,11 +571,15 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
         TextView new_food = new TextView(getActivity());
         TextView new_food_calories = new TextView(getActivity());
+        new_food.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
         new_food_calories.setGravity(Gravity.RIGHT);
         //the new LayoutParams needs to be set to the PARENT. in this case, needs to be set to tablerow
-        new_food_calories.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        new_food_calories.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        //new_food_calories.canScrollHorizontally(SCROLL_INDICATOR_RIGHT);
         new_food.setText(food);
+        new_food.setTextSize(11);
         new_food_calories.setText(get_calories(food));
+        new_food_calories.setTextSize(11);
         //System.out.println(get_calories(food));
         new_row.addView(remove_button);
         new_row.addView(new_food);

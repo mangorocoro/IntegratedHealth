@@ -149,7 +149,7 @@
                 android:layout_marginBottom="3sp"
                 android:layout_marginLeft="3sp"
                 android:layout_marginRight="3sp"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:fadeScrollbars="false"
                 >
 
                 <android.support.v4.widget.NestedScrollView
@@ -161,7 +161,8 @@
                         android:id="@+id/food_table"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:stretchColumns="1">
+                        android:stretchColumns="1"
+                        android:layout_marginRight="5sp">
 
 
 
@@ -267,7 +268,8 @@
                 android:background="@drawable/border"
                 android:layout_marginBottom="60sp"
                 android:layout_marginLeft="3sp"
-                android:layout_marginRight="3sp">
+                android:layout_marginRight="3sp"
+                android:fadeScrollbars="false">
 
                 <TableLayout
                     android:id="@+id/recommendations"
