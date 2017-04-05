@@ -123,8 +123,6 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         ProgressBar progress_bar = (ProgressBar) root_view.findViewById(R.id.diet_progress_bar);
         progress_bar.setProgress(90);
 
-        final TextView carbs_textview = (TextView) root_view.findViewById(R.id.carbs_textview);
-
         foods = this.getResources().getStringArray(R.array.food_keys);
         calories = this.getResources().getStringArray(R.array.food_values);
         macronutrients = this.getResources().getStringArray(R.array.verbose_food_values);
@@ -184,8 +182,6 @@ public class DietFragment extends Fragment implements View.OnClickListener{
             }
 
         });
-
-
 
         add_to_food_table("potato");
         sample_writes(getActivity().getApplicationContext());
