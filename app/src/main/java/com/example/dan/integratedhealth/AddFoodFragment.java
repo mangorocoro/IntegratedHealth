@@ -71,11 +71,37 @@ public class AddFoodFragment extends AppCompatActivity implements View.OnClickLi
             case R.id.save_button:
                 Intent save_intent = new Intent();
                 save_intent.putExtra("FOOD_NAME", food_name.getText());
-                save_intent.putExtra("CALORIES", calories.getText());
-                save_intent.putExtra("FATS", fats.getText());
-                save_intent.putExtra("SUGARS", sugars.getText());
-                save_intent.putExtra("PROTEINS", proteins.getText());
-                save_intent.putExtra("CARBS", carbohydrates.getText());
+
+                if (calories.getText() != null && calories.getText().length() > 0) {
+                    save_intent.putExtra("CALORIES", calories.getText());
+                } else {
+                    save_intent.putExtra("CALORIES", String.valueOf(0));
+                }
+
+                if (fats.getText() != null && fats.getText().length() > 0) {
+                    save_intent.putExtra("FATS", fats.getText());
+                } else {
+                    save_intent.putExtra("FATS", String.valueOf(0));
+                }
+
+                if (sugars.getText() != null && sugars.getText().length() > 0) {
+                    save_intent.putExtra("SUGARS", sugars.getText());
+                } else {
+                    save_intent.putExtra("SUGARS", String.valueOf(0));
+                }
+
+                if (proteins.getText() != null && proteins.getText().length() > 0) {
+                    save_intent.putExtra("PROTEINS", proteins.getText());
+                } else {
+                    save_intent.putExtra("PROTEINS", String.valueOf(0));
+                }
+
+                if (carbohydrates.getText() != null && carbohydrates.getText().length() > 0) {
+                    save_intent.putExtra("CARBS", carbohydrates.getText());
+                } else {
+                    save_intent.putExtra("CARBS", String.valueOf(0));
+                }
+
 
                 setResult(Activity.RESULT_OK, save_intent);
                 finish();
