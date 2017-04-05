@@ -37,6 +37,11 @@
     <string name="sugars_label">Sugars</string>
     <string name="save_button_label">Save</string>
     <string name="cancel_button_label">Cancel</string>
+    <string name="custom_macros_label">Custom Macronutrient Goals</string>
+    <string name="protein_hint2">100</string>
+    <string name="fats_hint2">50</string>
+    <string name="carbs_hint2">200</string>
+    <string name="sugars_hint2">20</string>
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
