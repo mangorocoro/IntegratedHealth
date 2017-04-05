@@ -24,6 +24,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -59,6 +61,11 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     private int added_sugars;
     private String added_food_name;
     private int added_calories;
+
+    private int goal_proteins = 0;
+    private int goal_fats = 0;
+    private int goal_carbs = 0;
+    private int goal_sugars = 0;
 
     private HashMap<String,HashMap> scenarioData;
     private HashMap<String, String> meta;
@@ -98,8 +105,25 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         Button food_table_cancel_button = (Button) root_view.findViewById(R.id.food_table_cancel_button);
         food_table_cancel_button.setOnClickListener(this);
 
+        Button traditional_button = (Button) root_view.findViewById(R.id.traditional_button);
+        traditional_button.setOnClickListener(this);
+
+        Button vegetarian_button = (Button) root_view.findViewById(R.id.vegetarian_button);
+        vegetarian_button.setOnClickListener(this);
+
+        Button atkins_button = (Button) root_view.findViewById(R.id.atkins_button);
+        atkins_button.setOnClickListener(this);
+
+        Button keto_button = (Button) root_view.findViewById(R.id.keto_button);
+        keto_button.setOnClickListener(this);
+
+        Button custom_button = (Button) root_view.findViewById(R.id.custom_button);
+        custom_button.setOnClickListener(this);
+
         ProgressBar progress_bar = (ProgressBar) root_view.findViewById(R.id.diet_progress_bar);
         progress_bar.setProgress(90);
+
+        final TextView carbs_textview = (TextView) root_view.findViewById(R.id.carbs_textview);
 
         foods = this.getResources().getStringArray(R.array.food_keys);
         calories = this.getResources().getStringArray(R.array.food_values);
@@ -132,11 +156,13 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                             TextView calories_view = (TextView) food_table_row.getChildAt(2);
                             if (calories_view != null) {
                                 calories_view.setText(get_macronutrients(food_item.getText().toString()));
+                                //calories_view.setText(get_calories(food_item.getText().toString()));
                                 update_table_to_verbose();
                             }
-                            verbose_textview.setText(R.string.verbose_label);
                         }
                     }
+
+                    verbose_textview.setText(R.string.verbose_label);
                 } else {
                     //Switch is off
                     for (int i = 0; i < food_table.getChildCount(); i++) {
@@ -149,9 +175,10 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                                 calories_view.setText(get_calories(food_item.getText().toString()));
                                 update_calories_table();
                             }
-                            verbose_textview.setText(R.string.simple_label);
+
                         }
                     }
+                    verbose_textview.setText(R.string.simple_label);
 
                 }
             }
@@ -187,6 +214,43 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
 
         switch(v.getId()) {
+            case R.id.traditional_button:
+                goal_carbs = 300;
+                goal_fats = 50;
+                goal_proteins = 150;
+                goal_sugars = 20;
+                update_macronutrients();
+                break;
+
+            case R.id.vegetarian_button:
+                goal_carbs = 400;
+                goal_fats = 20;
+                goal_proteins = 100;
+                goal_sugars = 20;
+                update_macronutrients();
+                break;
+
+            case R.id.atkins_button:
+                goal_carbs = 200;
+                goal_fats = 50;
+                goal_proteins = 300;
+                goal_sugars = 200;
+                update_macronutrients();
+                break;
+
+            case R.id.keto_button:
+                goal_carbs = 300;
+                goal_fats = 10;
+                goal_proteins = 100;
+                goal_sugars = 50;
+                update_macronutrients();
+                break;
+
+            case R.id.custom_button:
+                update_macronutrients();
+                break;
+
+
             case R.id.food_table_cancel_button:
                 TableLayout food_table = (TableLayout) root_view.findViewById(R.id.food_table);
                 for (int index = 0; index < food_table.getChildCount(); index++) {
@@ -223,6 +287,13 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    public void update_macronutrients() {
+        update_carbs_textview();
+        update_fats_textview();
+        update_proteins_textview();
+        update_sugars_textview();
+    }
+
     public void sample_writes(Context context) {
         empty_file(context);
         write_to_file("potato#90 calories#90 calories, 15g carbs, 10g fat, 5g protein, 3g sugar|", context);
@@ -250,6 +321,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         total_proteins += strip_grams(get_proteins(food));
         total_sugars += strip_grams(get_sugars(food));
 
+        update_macronutrients();
+
     }
 
 
@@ -265,6 +338,23 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         return Integer.parseInt(parts[0]);
     }
 
+    public void update_proteins_textview(){
+        TextView protein_textview = (TextView) root_view.findViewById(R.id.protein_textview);
+        protein_textview.setText(String.valueOf(total_proteins) + "/" + String.valueOf(goal_proteins) + "g protein");
+    }
+    public void update_fats_textview(){
+        TextView fats_textview = (TextView) root_view.findViewById(R.id.fats_textview);
+        fats_textview.setText(String.valueOf(total_fats) + "/" + String.valueOf(goal_fats) + "g fats");
+    }
+    public void update_carbs_textview(){
+        TextView carbs_textview = (TextView) root_view.findViewById(R.id.carbs_textview);
+        carbs_textview.setText(String.valueOf(total_carbs) + "/" + String.valueOf(goal_carbs) + "g carbs");
+    }
+    public void update_sugars_textview(){
+        TextView sugars_textview = (TextView) root_view.findViewById(R.id.sugars_textview);
+        sugars_textview.setText(String.valueOf(total_sugars) + "/" + String.valueOf(goal_sugars) + "g sugars");
+    }
+
     //increases the total calories count
     public void update_calories_table(){
         TextView calories_textview = (TextView) root_view.findViewById(R.id.total_calories);
@@ -277,8 +367,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     public void update_table_to_verbose(){
         TextView calories_textview = (TextView) root_view.findViewById(R.id.total_calories);
-        calories_textview.setText(total_macronutrients_string());
-
+        //calories_textview.setText(total_macronutrients_string());
+        calories_textview.setText(String.valueOf(total_calories) + " calories");
     }
 
 
@@ -417,6 +507,9 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                     total_sugars -= get_sugars_double(food);
                     total_fats -= get_fats_double(food);
                     total_calories -= strip_calories_string(get_calories(food));
+
+                    update_macronutrients();
+
                     if (mySwitch.isChecked()) {
                         update_table_to_verbose();
                     } else {
