@@ -23,6 +23,7 @@ import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -63,6 +64,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     private View root_view;
     public static final int REQUEST_CODE_ADD_FOOD = 90;
     public static final int REQUEST_CODE_CUSTOM_MACROS = 91;
+    public boolean warning = false;
 
     private int added_fats;
     private int added_proteins;
@@ -208,6 +210,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         //add_to_food_table("steak");
 
         startup();
+        //System.out.println("after startup" + warning);
 
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("Diet Information for " + meta.get("name"));
@@ -301,7 +304,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
 
     public String get_goal_macros() {
-        return goal_carbs + " " + goal_fats + " " + goal_proteins + " " + goal_sugars;
+        return goal_carbs + " " + goal_fats + " " + goal_proteins + " " + goal_sugars + " " +warning;
     }
 
     public void startup() {
@@ -317,11 +320,17 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     private void interpret_goal_macros_file(String string) {
         String[] macros = string.split(" ");
-        System.out.println(string);
+        //System.out.println(string);
         goal_carbs = Integer.parseInt(macros[0]);
         goal_fats = Integer.parseInt(macros[1]);
         goal_proteins = Integer.parseInt(macros[2]);
         goal_sugars = Integer.parseInt(macros[3]);
+
+        //System.out.println("VALUE OF WARNING"+String.valueOf(warning));
+
+        if (macros.length > 4) {
+            warning = Boolean.valueOf(macros[4]);
+        }
     }
 
     public void update_macronutrients() {
@@ -333,7 +342,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     public void add_goal_macros_to_file(){
         empty_file(getActivity().getApplicationContext(), meta.get("name") + "2.txt");
-        System.out.println("ADDED GOAL MACROS" + get_goal_macros());
+        //System.out.println("ADDED GOAL MACROS" + get_goal_macros());
         write_to_file(get_goal_macros(), getActivity().getApplicationContext(), meta.get("name") + "2.txt");
     }
 
@@ -384,18 +393,51 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     public void update_proteins_textview(){
         TextView protein_textview = (TextView) root_view.findViewById(R.id.protein_textview);
         protein_textview.setText(String.valueOf(total_proteins) + "/" + String.valueOf(goal_proteins) + "g protein");
+
     }
     public void update_fats_textview(){
         TextView fats_textview = (TextView) root_view.findViewById(R.id.fats_textview);
         fats_textview.setText(String.valueOf(total_fats) + "/" + String.valueOf(goal_fats) + "g fats");
+
     }
     public void update_carbs_textview(){
         TextView carbs_textview = (TextView) root_view.findViewById(R.id.carbs_textview);
         carbs_textview.setText(String.valueOf(total_carbs) + "/" + String.valueOf(goal_carbs) + "g carbs");
+
     }
     public void update_sugars_textview(){
         TextView sugars_textview = (TextView) root_view.findViewById(R.id.sugars_textview);
         sugars_textview.setText(String.valueOf(total_sugars) + "/" + String.valueOf(goal_sugars) + "g sugars");
+
+    }
+
+    public void show_toasts(){
+
+        //System.out.println("INSIDE TOAST" + warning + " " + !warning);
+        //System.out.println((total_carbs > goal_carbs) && (!warning));
+
+        if ((total_proteins > goal_proteins) && (!warning)) {
+            Toast toast = Toast.makeText(getActivity(), "Be careful, one of your macronutrients is a bit high!" , Toast.LENGTH_LONG);
+            toast.show();
+            warning = true;
+            add_goal_macros_to_file();
+        } else if ((total_fats > goal_fats) && (!warning)) {
+            Toast toast = Toast.makeText(getActivity(), "Be careful, one of your macronutrients is a bit high!" , Toast.LENGTH_LONG);
+            toast.show();
+            warning = true;
+            add_goal_macros_to_file();
+        } else if ((total_carbs > goal_carbs) && (!warning)) {
+            Toast toast = Toast.makeText(getActivity(), "Be careful, one of your macronutrients is a bit high!" , Toast.LENGTH_LONG);
+            toast.show();
+            warning = true;
+            add_goal_macros_to_file();
+        } else if ((total_sugars > goal_sugars) && (!warning)) {
+            Toast toast = Toast.makeText(getActivity(), "Be careful, one of your macronutrients is a bit high!" , Toast.LENGTH_LONG);
+            toast.show();
+            warning = true;
+            add_goal_macros_to_file();
+        }
+
     }
 
     //increases the total calories count
@@ -499,7 +541,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     public double get_proteins_double(String food) {
         String macros = get_macronutrients(food);
-        System.out.println("--->" + macros);
+        //System.out.println("--->" + macros);
         String[] macros_array = macros.split(",");
         return Double.parseDouble(macros_array[3].trim().split(" ")[0].replace("g", ""));
     }
@@ -526,6 +568,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     public void add_food(String food, int calories, int fat, int protein, int carb, int sugar, String filename) {
         //write_to_file("potato#90 calories#90 calories, 15g carbs, 10g fat, 5g protein, 3g sugar|", context);
         write_to_file(food + "#" + calories + " calories#"  + calories + " calories," + carb +"g carbs, " + fat + "g fat, " + protein + "g protein, " + sugar + "g sugar|", getActivity().getApplicationContext(), filename);
+        //System.out.println("what is the value of warning:" + warning);
+        show_toasts();
     }
 
     public void remove_food(String food) {
@@ -561,10 +605,10 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
                     remove_from_file((food + "#" + get_calories(food) + "#"  + get_calories(food) + "," + get_carbs(food) +" carbs, " + get_fats(food) + " fat, " + get_proteins(food) + " protein, " + get_sugars(food) + " sugar|"), getActivity().getApplicationContext(), meta.get("name") + ".txt");
 
-                    System.out.println(food + "#" + get_calories(food) + "#"  + get_calories(food) + "," + get_carbs(food) +" carbs, " + get_fats(food) + " fat, " + get_proteins(food) + " protein, " + get_sugars(food) + " sugar|");
+                    //System.out.println(food + "#" + get_calories(food) + "#"  + get_calories(food) + "," + get_carbs(food) +" carbs, " + get_fats(food) + " fat, " + get_proteins(food) + " protein, " + get_sugars(food) + " sugar|");
                     food_table.removeView(food_table_row);
 
-                    System.out.println(read_from_file(getActivity().getApplicationContext(), meta.get("name") + ".txt"));
+                    //System.out.println(read_from_file(getActivity().getApplicationContext(), meta.get("name") + ".txt"));
 
                     // write_to_file(food + "#" + calories + " calories#"  + calories + " calories," + carb +"g carbs, " + fat + "g fat, " + protein + "g protein, " + sugar + "g sugar|",
 
@@ -634,7 +678,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
             }
 
 
-            System.out.println("lololol-->"+ delete);
+            //System.out.println("lololol-->"+ delete);
 
 
             empty_file(getActivity().getApplicationContext(), meta.get("name") + ".txt");
@@ -644,7 +688,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
             for (String line: lines) {
                 outputStreamWriter.write(line);
-                System.out.println(line);
+                //System.out.println(line);
             }
             outputStreamWriter.close();
             //writer.close();
@@ -694,7 +738,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         } catch (IOException e) {
             //Log.e("login activity", "Can not read file: " + e.toString());
         }
-        System.out.println("GOT THIS FROM FILE:" + ret);
+        //System.out.println("GOT THIS FROM FILE:" + ret);
         return ret;
     }
 
