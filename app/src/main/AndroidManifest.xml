@@ -28,6 +28,7 @@
             android:label="@string/title_activity_scenario_picker"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".AddFoodFragment"/>
+        <activity android:name=".CustomMacrosActivity"/>
     </application>
 
 </manifest>

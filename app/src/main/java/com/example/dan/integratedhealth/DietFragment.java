@@ -62,6 +62,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     private Switch mySwitch;
     private View root_view;
     public static final int REQUEST_CODE_ADD_FOOD = 90;
+    public static final int REQUEST_CODE_CUSTOM_MACROS = 91;
 
     private int added_fats;
     private int added_proteins;
@@ -227,6 +228,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 goal_proteins = 150;
                 goal_sugars = 20;
                 update_macronutrients();
+                add_goal_macros_to_file();
                 break;
 
             case R.id.vegetarian_button:
@@ -235,6 +237,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 goal_proteins = 100;
                 goal_sugars = 20;
                 update_macronutrients();
+                add_goal_macros_to_file();
                 break;
 
             case R.id.atkins_button:
@@ -243,6 +246,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 goal_proteins = 300;
                 goal_sugars = 200;
                 update_macronutrients();
+                add_goal_macros_to_file();
                 break;
 
             case R.id.keto_button:
@@ -251,10 +255,12 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 goal_proteins = 100;
                 goal_sugars = 50;
                 update_macronutrients();
+                add_goal_macros_to_file();
                 break;
 
             case R.id.custom_button:
-                update_macronutrients();
+                Intent custom_macros = new Intent(getActivity().getApplicationContext(), CustomMacrosActivity.class);
+                startActivityForResult(custom_macros, REQUEST_CODE_CUSTOM_MACROS);
                 break;
 
 
@@ -295,13 +301,30 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     }
 
+
+
+    public String get_goal_macros() {
+        return goal_carbs + " " + goal_fats + " " + goal_proteins + " " + goal_sugars;
+    }
+
     public void startup() {
         //interpret_food_file(read_from_file(getActivity().getApplicationContext(), "food.txt"));
         //add_to_food_table(added_food_name);
 
         interpret_food_file(read_from_file(getActivity().getApplicationContext(), meta.get("name") + ".txt"), true);
+        interpret_goal_macros_file(read_from_file(getActivity().getApplicationContext(), meta.get("name") + "2.txt"));
+        update_macronutrients();
 
 
+    }
+
+    private void interpret_goal_macros_file(String string) {
+        String[] macros = string.split(" ");
+        System.out.println(string);
+        goal_carbs = Integer.parseInt(macros[0]);
+        goal_fats = Integer.parseInt(macros[1]);
+        goal_proteins = Integer.parseInt(macros[2]);
+        goal_sugars = Integer.parseInt(macros[3]);
     }
 
     public void update_macronutrients() {
@@ -309,6 +332,12 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         update_fats_textview();
         update_proteins_textview();
         update_sugars_textview();
+    }
+
+    public void add_goal_macros_to_file(){
+        empty_file(getActivity().getApplicationContext(), meta.get("name") + "2.txt");
+        System.out.println("ADDED GOAL MACROS" + get_goal_macros());
+        write_to_file(get_goal_macros(), getActivity().getApplicationContext(), meta.get("name") + "2.txt");
     }
 
     public void sample_writes(Context context) {
@@ -638,6 +667,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     }
 
+
     private String read_from_file(Context context, String filename) {
 
         System.out.println(filename);
@@ -667,7 +697,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         } catch (IOException e) {
             //Log.e("login activity", "Can not read file: " + e.toString());
         }
-
+        System.out.println("GOT THIS FROM FILE:" + ret);
         return ret;
     }
 
@@ -704,6 +734,16 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 added_sugars = 0;
                 added_calories = 0;
                 added_food_name = "";
+            }
+        }
+        if (requestCode == REQUEST_CODE_CUSTOM_MACROS) {
+            if (resultCode == Activity.RESULT_OK) {
+                goal_proteins = Integer.parseInt(data.getCharSequenceExtra("PROTEINS").toString());
+                goal_fats = Integer.parseInt(data.getCharSequenceExtra("FATS").toString());
+                goal_sugars = Integer.parseInt(data.getCharSequenceExtra("SUGARS").toString());
+                goal_carbs = Integer.parseInt(data.getCharSequenceExtra("CARBS").toString());
+                update_macronutrients();
+                add_goal_macros_to_file();
             }
         }
     }
