@@ -27,13 +27,20 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import static android.view.View.GONE;
 
@@ -186,19 +193,20 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
         });
 
-        add_to_food_table("potato");
-        sample_writes(getActivity().getApplicationContext());
+        //add_to_food_table("potato");
+        //sample_writes(getActivity().getApplicationContext());
 
-        String long_ass_string = read_from_file(getActivity().getApplicationContext());
+        String long_ass_string = read_from_file(getActivity().getApplicationContext(), "food.txt");
 
-        interpret_food_file(long_ass_string);
-        add_to_food_table("beans");
+        interpret_food_file(long_ass_string, false);
+        //add_to_food_table("beans");
 
-        System.out.println(get_proteins("beans"));
-        add_to_food_table("steak");
-        add_to_food_table("steak");
-        add_to_food_table("steak");
-        add_to_food_table("steak");
+        //add_to_food_table("steak");
+        //add_to_food_table("steak");
+        //add_to_food_table("steak");
+        //add_to_food_table("steak");
+
+        startup();
 
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("Diet Information for " + meta.get("name"));
@@ -287,6 +295,15 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    public void startup() {
+        //interpret_food_file(read_from_file(getActivity().getApplicationContext(), "food.txt"));
+        //add_to_food_table(added_food_name);
+
+        interpret_food_file(read_from_file(getActivity().getApplicationContext(), meta.get("name") + ".txt"), true);
+
+
+    }
+
     public void update_macronutrients() {
         update_carbs_textview();
         update_fats_textview();
@@ -295,11 +312,11 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     }
 
     public void sample_writes(Context context) {
-        empty_file(context);
-        write_to_file("potato#90 calories#90 calories, 15g carbs, 10g fat, 5g protein, 3g sugar|", context);
-        write_to_file("beans#100 calories#100 calories, 30g carbs, 15g fat, 5g protein, 1g sugar|", context);
-        write_to_file("carrots#90 calories#80 calories, 20g carbs, 10g fat, 5g protein, 2g sugar|", context);
-        write_to_file("tomatoes#90 calories#60 calories, 10g carbs, 5g fat, 3g protein, 3g sugar|", context);
+        empty_file(context, meta.get("name") + ".txt");
+        write_to_file("potato#90 calories#90 calories, 15g carbs, 10g fat, 5g protein, 3g sugar|", context, "food.txt");
+        write_to_file("beans#100 calories#100 calories, 30g carbs, 15g fat, 5g protein, 1g sugar|", context, "food.txt");
+        write_to_file("carrots#90 calories#80 calories, 20g carbs, 10g fat, 5g protein, 2g sugar|", context, "food.txt");
+        write_to_file("tomatoes#90 calories#60 calories, 10g carbs, 5g fat, 3g protein, 3g sugar|", context, "food.txt");
     }
 
 
@@ -480,9 +497,9 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     }
 
 
-    public void add_food(String food, int calories, int fat, int protein, int carb, int sugar) {
+    public void add_food(String food, int calories, int fat, int protein, int carb, int sugar, String filename) {
         //write_to_file("potato#90 calories#90 calories, 15g carbs, 10g fat, 5g protein, 3g sugar|", context);
-        write_to_file(food + "#" + calories + " calories#"  + calories + " calories," + carb +"g carbs, " + fat + "g fat, " + protein + "g protein, " + sugar + "g sugar|", getActivity().getApplicationContext());
+        write_to_file(food + "#" + calories + " calories#"  + calories + " calories," + carb +"g carbs, " + fat + "g fat, " + protein + "g protein, " + sugar + "g sugar|", getActivity().getApplicationContext(), filename);
     }
 
     public void remove_food(String food) {
@@ -515,7 +532,17 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                     } else {
                         update_calories_table();
                     }
+
+                    remove_from_file((food + "#" + get_calories(food) + "#"  + get_calories(food) + "," + get_carbs(food) +" carbs, " + get_fats(food) + " fat, " + get_proteins(food) + " protein, " + get_sugars(food) + " sugar|"), getActivity().getApplicationContext(), meta.get("name") + ".txt");
+
+                    System.out.println(food + "#" + get_calories(food) + "#"  + get_calories(food) + "," + get_carbs(food) +" carbs, " + get_fats(food) + " fat, " + get_proteins(food) + " protein, " + get_sugars(food) + " sugar|");
                     food_table.removeView(food_table_row);
+
+                    System.out.println(read_from_file(getActivity().getApplicationContext(), meta.get("name") + ".txt"));
+
+                    // write_to_file(food + "#" + calories + " calories#"  + calories + " calories," + carb +"g carbs, " + fat + "g fat, " + protein + "g protein, " + sugar + "g sugar|",
+
+
                     break;
                 }
             }
@@ -523,7 +550,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    private void interpret_food_file(String string) {
+    private void interpret_food_file(String string, boolean add) {
 
         //this string will be a giant string, but "|" divides the foods from each other
         String[] parts = string.split("[|]");
@@ -532,19 +559,25 @@ public class DietFragment extends Fragment implements View.OnClickListener{
             //now that the string is split into food calorie pairs, need to split again
             String[] second_parts = a.split("[#]");
             //food = second_parts[0], calories = second_parts[1]
-            foods_calories.put(second_parts[0], second_parts[1]);
+            if (second_parts.length > 1) {
+                foods_calories.put(second_parts[0], second_parts[1]);
 
-            //second_parts[2] is the macronutrients, so needs a null check to make sure
-            if (second_parts[2] != null) {
-                verbose_foods_calories.put(second_parts[0], second_parts[2]);
+                //second_parts[2] is the macronutrients, so needs a null check to make sure
+                if (second_parts[2] != null) {
+                    verbose_foods_calories.put(second_parts[0], second_parts[2]);
+                }
+
+                if (add) {
+                    add_to_food_table(second_parts[0]);
+                }
             }
         }
 
     }
 
-    private void write_to_file(String data,Context context) {
+    private void write_to_file(String data,Context context, String filename) {
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(FOODTEXT, Context.MODE_APPEND));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_APPEND));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
         }
@@ -552,12 +585,67 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    private String read_from_file(Context context) {
+    private void remove_from_file(String delete, Context context, String filename) {
+        String charset = "UTF-8";
+        String temp = "temp.txt";
+        List<String> lines = new LinkedList<String>();
+
+        try {
+            InputStream inputStream = context.openFileInput(filename);
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    receiveString = receiveString.replace(delete,"");
+                    lines.add(receiveString);
+                }
+
+                inputStream.close();
+            }
+
+
+            System.out.println("lololol-->"+ delete);
+
+
+            empty_file(getActivity().getApplicationContext(), meta.get("name") + ".txt");
+
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_APPEND));
+
+
+            for (String line: lines) {
+                outputStreamWriter.write(line);
+                System.out.println(line);
+            }
+            outputStreamWriter.close();
+            //writer.close();
+
+
+        } catch (FileNotFoundException e){
+
+            System.out.println("This file is not found ->" + filename);
+
+        } catch (UnsupportedEncodingException e) {
+
+            System.out.println("unsupport encoding");
+
+        } catch (IOException e) {
+            System.out.println("io exception");
+        }
+
+    }
+
+    private String read_from_file(Context context, String filename) {
+
+        System.out.println(filename);
 
         String ret = "";
 
         try {
-            InputStream inputStream = context.openFileInput("food.txt");
+            InputStream inputStream = context.openFileInput(filename);
 
             if ( inputStream != null ) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -575,6 +663,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         }
         catch (FileNotFoundException e) {
             //Log.e("login activity", "File not found: " + e.toString());
+            System.out.println("This file missin ->" + filename);
         } catch (IOException e) {
             //Log.e("login activity", "Can not read file: " + e.toString());
         }
@@ -582,9 +671,9 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         return ret;
     }
 
-    private void empty_file(Context context) {
+    private void empty_file(Context context, String filename) {
         try {
-            OutputStreamWriter emptying = new OutputStreamWriter(context.openFileOutput("food.txt", Context.MODE_PRIVATE));
+            OutputStreamWriter emptying = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
             emptying.write("");
         } catch (FileNotFoundException e) {
 
@@ -604,9 +693,10 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 added_sugars = Integer.parseInt(data.getCharSequenceExtra("SUGARS").toString());
                 added_calories = Integer.parseInt(data.getCharSequenceExtra("CALORIES").toString());
                 added_food_name = data.getCharSequenceExtra("FOOD_NAME").toString();
-                add_food(added_food_name, added_calories, added_fats, added_proteins, added_carbs, added_sugars);
-                interpret_food_file(read_from_file(getActivity().getApplicationContext()));
+                add_food(added_food_name, added_calories, added_fats, added_proteins, added_carbs, added_sugars, "food.txt");
+                interpret_food_file(read_from_file(getActivity().getApplicationContext(), "food.txt"), false);
                 add_to_food_table(added_food_name);
+                add_food(added_food_name, added_calories, added_fats, added_proteins, added_carbs, added_sugars, meta.get("name") + ".txt");
 
                 added_fats = 0;
                 added_proteins = 0;
