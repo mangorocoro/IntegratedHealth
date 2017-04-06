@@ -361,6 +361,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
             TextView new_food_suggestion = new TextView(getActivity());
             Button add_food_suggestion = new Button(getActivity());
             add_food_suggestion.setGravity(Gravity.RIGHT);
+            add_food_suggestion.setText("Add Me!");
             add_food_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
             add_food_suggestion.setOnClickListener(new View.OnClickListener(){
 
@@ -372,10 +373,23 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 }
             });
 
+            Button view_recipe_suggestion = new Button(getActivity());
+            view_recipe_suggestion.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    Intent recipe_intent = new Intent(getActivity().getApplicationContext(), RecipeActivity.class);
+                    startActivity(recipe_intent);
+                }
+            });
+
+
+            view_recipe_suggestion.setGravity(Gravity.RIGHT);
+            view_recipe_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            view_recipe_suggestion.setText("Recipe");
             new_food_suggestion.setText(curr_food);
             new_food_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
             new_row.addView(new_food_suggestion);
             new_row.addView(add_food_suggestion);
+            new_row.addView(view_recipe_suggestion);
             recommendations_table.addView(new_row);
         }
 
