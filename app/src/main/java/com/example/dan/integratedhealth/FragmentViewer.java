@@ -89,17 +89,15 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
         switch(position) {
             /* navigate to home */
             case 0:
-                System.out.println("case 0");
 
                 Intent intent = new Intent(FragmentViewer.this, HomeScreen.class);
                 intent.putExtra("currentScenario", meta.get("scenarioName") );
+                intent.putExtra("taskScenarioData", taskScenarioData);
                 startActivity(intent);
                 break;
 
             /* navigate to general */
             case 1:
-                System.out.println("case 1");
-
                 GeneralFragment generalFragment = new GeneralFragment();
                 Bundle generalData = new Bundle();
                 taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
@@ -114,8 +112,6 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
 
             /* navigate to fitness */
             case 2:
-                System.out.println("case 2");
-
                 FitnessFragment fitnessFragment = new FitnessFragment();
                 Bundle fitnessData = new Bundle();
                 taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
@@ -130,8 +126,6 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
 
             /* navigate to diet */
             case 3:
-                System.out.println("case 3");
-
                 DietFragment dietFragment = new DietFragment();
                 Bundle dietData = new Bundle();
                 taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
