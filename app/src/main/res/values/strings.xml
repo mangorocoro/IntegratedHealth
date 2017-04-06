@@ -67,7 +67,7 @@
     <string name="fitness_dave_title">Fitness - Dave\'s Body Building Aspirations</string>
     <string name="diet_riley_title">Diet - Riley\'s Healthy Meal Plan</string>
     <string name="diet_vanessa_title">Diet - Vanessa\'s Health Craze</string>
-    <string name="general_george_title">General - George\'s Lazy Physical</string>
+    <string name="general_george_title">General - George\'s Lazy Checkup</string>
     <string name="general_jimmy_title">General - Jimmy\'s Stressed Out!</string>
     <string name="new_user_title">New User</string>
 
@@ -87,7 +87,8 @@
 
     <string name="diet_riley">
         Riley wants to start eating healthy, but whenever she starts preparing food, she doesn\'t
-        know what is healthy and what isn\'t.
+        know what is healthy and what isn\'t. She fills in some data about her preferences and works
+        with the recommendations offered.
     </string>
 
     <string name="diet_vanessa">
@@ -116,6 +117,67 @@
         when the devices and companion apps are connected for full functionality. The app will ask
         for specific details to fill in for the user to use the app fully.
     </string>
+
+
+
+
+    <string name="heartrate_sync_message">
+        Please sync your heartrate monitor with this app.
+    </string>
+
+    <string name="heartrate_sync_title">
+        Sync heartrate device
+    </string>
+
+    <string name="hydration_sync_message">
+        Please sync your hydratio monitor with this app.
+    </string>
+
+    <string name="hydration_sync_title">
+        Sync hydration monitoring app
+    </string>
+
+    <string name="gut_sync_message">
+        Please give StoolInspector access
+    </string>
+
+    <string name="gut_sync_title">
+        StoolInspector Access
+    </string>
+
+    <string name="fire">
+        fire
+    </string>
+
+    <string name="cancel">
+        cancel
+    </string>
+
+    <string-array name="noobie1">
+        <item>20.0 lbs                          20 reps</item>
+        <item>25.0 lbs                          10 reps</item>
+        <item>30.0 lbs                          5 reps</item>
+    </string-array>
+
+    <string-array name="noobie2">
+        <item>45.0 lbs                          20 reps</item>
+        <item>55.0 lbs                          10 reps</item>
+        <item>70.0 lbs                          5 reps</item>
+    </string-array>
+
+    <string-array name="pro1">
+        <item>50.0 lbs                          20 reps</item>
+        <item>65.0 lbs                          10 reps</item>
+        <item>70.0 lbs                          5 reps</item>
+    </string-array>
+
+    <string-array name="pro2">
+        <item>135.0 lbs                          20 reps</item>
+        <item>165.0 lbs                          10 reps</item>
+        <item>180.0 lbs                          5 reps</item>
+    </string-array>
+
+
 
 
 </resources>
