@@ -71,6 +71,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     private HashMap<String,HashMap> scenarioData;
     private HashMap<String, String> meta;
     private HashMap<String, String> diet;
+    private HashMap<String, String> general;
 
 
     @Override
@@ -92,10 +93,29 @@ public class DietFragment extends Fragment implements View.OnClickListener{
             scenarioData = (HashMap)getArguments().getSerializable("taskScenarioData");
             meta = scenarioData.get("metadata");
             diet = scenarioData.get("diet");
+            general = scenarioData.get("general");
         }
 
 
-        root_view=inflater.inflate(R.layout.fragment_diet,container,false);
+        root_view = inflater.inflate(R.layout.fragment_diet,container,false);
+
+
+        TextView currentWeightEntry = (TextView) root_view.findViewById(R.id.current_weight);
+        TextView currentGoalWeightEntry = (TextView) root_view.findViewById(R.id.goal_weight);
+        TextView currentStartingWeightEntry = (TextView) root_view.findViewById(R.id.starting_weight);
+
+        String goalWeightStr = diet.get("goalweight");
+        String currentWeightStr = general.get("weight");
+        String startingWeightStr = general.get("startingweight");
+
+        currentWeightEntry.setText("Current: " + currentWeightStr);
+        currentGoalWeightEntry.setText("Goal: " + goalWeightStr);
+
+        if (meta.get("name").equals("newuser")) {
+            currentStartingWeightEntry.setText("Start: " + currentWeightStr);
+        } else {
+            currentStartingWeightEntry.setText("Start: " + startingWeightStr);
+        }
 
         //add_food_view = inflater.inflate(R.layout.fragment_addfood, container, false);
 

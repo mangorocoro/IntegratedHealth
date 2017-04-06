@@ -1,26 +1,37 @@
 package com.example.dan.integratedhealth;
 
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -33,6 +44,9 @@ public class GeneralFragment extends Fragment {
     private static final int BMI_METRIC_CONVERSION_FACTOR = 703;
     private HashMap<String,HashMap> scenarioData;
     private HashMap<String, String> meta;
+    private HashMap<String, String> general;
+    EditText heightContent;
+    EditText weightContent;
 
     @Nullable
     @Override
@@ -40,9 +54,11 @@ public class GeneralFragment extends Fragment {
         scenarioData = new HashMap<>();
         if (getArguments()!=null) {
             scenarioData = (HashMap)getArguments().getSerializable("taskScenarioData");
+            meta = scenarioData.get("metadata");
+            general = scenarioData.get("general");
         }
 
-        rootView=inflater.inflate(R.layout.fragment_general,container,false);
+        rootView = inflater.inflate(R.layout.fragment_general,container,false);
 
         /* fill in preloaded data */
         updateData(scenarioData);
@@ -55,8 +71,197 @@ public class GeneralFragment extends Fragment {
         actionBar.setTitle("General Health for " + meta.get("name"));
 
 
+        if (!meta.get("name").equals("newuser")) {
+
+            TextView heartRateContentView = (TextView) rootView.findViewById(R.id.heartrate_content);
+            heartRateContentView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(R.string.heartrate_sync_title)
+                            .setMessage(R.string.heartrate_sync_message)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // do nothing
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+
+
+            TextView gutContentView = (TextView) rootView.findViewById(R.id.guthealth_content);
+            gutContentView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(R.string.gut_sync_title)
+                            .setMessage(R.string.gut_sync_message)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // do nothing
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+
+            TextView hydrationContentView = (TextView) rootView.findViewById(R.id.hydration_content);
+            hydrationContentView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(R.string.hydration_sync_title)
+                            .setMessage(R.string.hydration_sync_message)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // do nothing
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+        }
+
+        ImageView poopImage = (ImageView) rootView.findViewById(R.id.poop_id);
+
+        if (general.get("guthealth").equals("Diarrheal")) {
+            poopImage.setImageResource(R.drawable.diarrheapoop);
+        } else if (general.get("guthealth").equals("Constipated")) {
+            poopImage.setImageResource(R.drawable.constipated);
+        }
+
+
+        heightContent = (EditText) rootView.findViewById(R.id.height_content);
+        weightContent = (EditText) rootView.findViewById(R.id.weight_content);
+
+        heightContent.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // inflate alert dialog xml
+                LayoutInflater li = LayoutInflater.from(getContext());
+                View dialogView = li.inflate(R.layout.set_height_dialog, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        getContext());
+                // set title
+                alertDialogBuilder.setTitle("Enter New Height");
+                // set custom dialog icon
+                alertDialogBuilder.setIcon(R.drawable.height);
+                // set custom_dialog.xml to alertdialog builder
+                alertDialogBuilder.setView(dialogView);
+                final EditText userInputFeet = (EditText) dialogView.findViewById(R.id.feet_input);
+
+                final EditText userInputInches = (EditText) dialogView.findViewById(R.id.inches_input);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // get user input and set it to etOutput
+                                        // edit text
+                                        String newHeight = userInputFeet.getText().toString() + " ft " + userInputInches.getText().toString() + " in";
+                                        heightContent.setText(newHeight);
+                                        general.put("height", newHeight);
+                                        scenarioData.put("general", general);
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+            }
+        });
+
+
+        weightContent.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // inflate alert dialog xml
+                LayoutInflater li = LayoutInflater.from(getContext());
+                View dialogView = li.inflate(R.layout.set_weight_dialog, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                // set title
+                alertDialogBuilder.setTitle("Enter New Weight");
+                // set custom dialog icon
+                alertDialogBuilder.setIcon(R.drawable.height);
+                // set custom_dialog.xml to alertdialog builder
+                alertDialogBuilder.setView(dialogView);
+                final EditText userInputWeight = (EditText) dialogView.findViewById(R.id.weight_input);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        // get user input and set it to etOutput
+                                        // edit text
+                                        String newWeight= userInputWeight.getText().toString();
+                                        weightContent.setText(newWeight);
+                                        general.put("weight", newWeight);
+                                        scenarioData.put("general", general);
+
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+            }
+        });
+
+
+
         return rootView;
     }
+
+    /* a listener for text changes in edit text */
+    private TextWatcher textWatcher = new TextWatcher() {
+        public void afterTextChanged(Editable s) {
+            general.put("height", s.toString());
+            scenarioData.put("general", general);
+            System.out.println("s is " + s.toString());
+        }
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+    };
 
     /* update the visualized data on screen with passed in hashmap */
     private void updateData(HashMap<String, HashMap> hash){
@@ -64,8 +269,8 @@ public class GeneralFragment extends Fragment {
         HashMap<String, String> generalHash = hash.get("general");
 
         TextView heartrateView = (TextView) rootView.findViewById(R.id.heartrate_content);
-        TextView heightView = (TextView) rootView.findViewById(R.id.height_content);
-        TextView weightView = (TextView) rootView.findViewById(R.id.weight_content);
+        EditText heightView = (EditText) rootView.findViewById(R.id.height_content);
+        EditText weightView = (EditText) rootView.findViewById(R.id.weight_content);
         TextView bmiView = (TextView) rootView.findViewById(R.id.bmi_content);
         TextView gutView = (TextView) rootView.findViewById(R.id.guthealth_content);
         TextView hydrationView = (TextView) rootView.findViewById(R.id.hydration_content);
@@ -73,11 +278,30 @@ public class GeneralFragment extends Fragment {
         String heartrateValue = generalHash.get("heartrate");
         String heightValue = generalHash.get("height");
         String weightValue = generalHash.get("weight");
-        String bmiValue = bmiCalculation(heightValue, weightValue);
+
+        /* height format check */
+        String[] parsed_height = heightValue.split(" ");
+        String[] parsed_weight = weightValue.split(" ");
+        String bmiValue;
+
+        if (parsed_height.length > 2) {
+            if (parsed_weight.length> 1){
+                bmiValue = bmiCalculation(parsed_height[0] + " " + parsed_height[2], parsed_weight[0]);
+            } else {
+                bmiValue = bmiCalculation(parsed_height[0] + " " + parsed_height[2], weightValue);
+            }
+        } else {
+            if (parsed_weight.length > 1) { // make it check if it is less than 1 length
+                bmiValue = bmiCalculation(heightValue, parsed_weight[0]);
+            } else {
+                bmiValue = bmiCalculation(heightValue, weightValue);
+            }
+        }
+
+
         String gutValue = generalHash.get("guthealth");
         String hydrationValue = generalHash.get("hydration");
 
-        String[] parsed_height = heightValue.split(" ");
 
         String formattedHeight= parsed_height[0] + " ft  " + parsed_height[1] + " in";
 
@@ -93,7 +317,7 @@ public class GeneralFragment extends Fragment {
     /* calculate bmi */
     private String bmiCalculation(String height, String weight) {
 
-        meta = scenarioData.get("metadata");
+
 
         if (!meta.get("name").equals("newuser")) {
             String [] parsed_height = height.split(" ");
@@ -157,6 +381,9 @@ public class GeneralFragment extends Fragment {
 
 
     }
+
+
+
 
 
 }
