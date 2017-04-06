@@ -182,6 +182,17 @@ public class GeneralFragment extends Fragment {
                                         heightContent.setText(newHeight);
                                         general.put("height", newHeight);
                                         scenarioData.put("general", general);
+
+                                        TextView bmiView = (TextView) rootView.findViewById(R.id.bmi_content);
+                                        String weightValue = general.get("weight");
+                                        String[] parsed_weight = weightValue.split(" ");
+                                        if (parsed_weight.length> 1) {
+                                            String bmiValue = bmiCalculation(userInputFeet.getText().toString() + " " + userInputInches.getText().toString(), parsed_weight[0]);
+                                            bmiView.setText(bmiValue);
+                                        } else {
+                                            String bmiValue = bmiCalculation(userInputFeet.getText().toString() + " " + userInputInches.getText().toString(), weightValue);
+                                            bmiView.setText(bmiValue);
+                                        }
                                     }
                                 })
                         .setNegativeButton("Cancel",
@@ -222,10 +233,20 @@ public class GeneralFragment extends Fragment {
                                         // get user input and set it to etOutput
                                         // edit text
                                         String newWeight= userInputWeight.getText().toString();
-                                        weightContent.setText(newWeight);
+                                        weightContent.setText(newWeight + " lbs");
                                         general.put("weight", newWeight);
                                         scenarioData.put("general", general);
 
+                                        TextView bmiView = (TextView) rootView.findViewById(R.id.bmi_content);
+                                        String heightValue = general.get("height");
+                                        String[] parsed_height = heightValue.split(" ");
+                                        if (parsed_height.length > 2) {
+                                            String bmiValue = bmiCalculation(parsed_height[0] + " " + parsed_height[2], newWeight);
+                                            bmiView.setText(bmiValue);
+                                        } else {
+                                            String bmiValue = bmiCalculation(heightValue, newWeight);
+                                            bmiView.setText(bmiValue);
+                                        }
                                     }
                                 })
                         .setNegativeButton("Cancel",
