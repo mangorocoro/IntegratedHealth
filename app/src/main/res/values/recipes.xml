@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="food_traditional">
+        <item>Burger</item>
+        <item>Spaghetti and Meatballs</item>
+        <item>Lasagna</item>
+        <item>Chicken Wings</item>
+        <item>Fruit Salad</item>
+        <item>Kung Pao Chicken</item>
+        <item>Corn on the Cob</item>
+    </string-array>
+
+    <string-array name="food_vegetarian">
+        <item>Vegetarian Burger</item>
+        <item>Vegetarian Spaghetti and Meatballs</item>
+        <item>Vegetarian Lasagna</item>
+        <item>Vegetarian Chicken Wings</item>
+        <item>Vegetarian Fruit Salad</item>
+        <item>Vegetarian Kung Pao Chicken</item>
+        <item>Vegetarian Corn on the Cob</item>
+    </string-array>
+
+    <string-array name="food_atkins">
+        <item>Atkins Burger</item>
+        <item>Atkins Spaghetti and Meatballs</item>
+        <item>Atkins Lasagna</item>
+        <item>Atkins Chicken Wings</item>
+        <item>Atkins Fruit Salad</item>
+        <item>Atkins Kung Pao Chicken</item>
+        <item>Atkins Corn on the Cob</item>
+    </string-array>
+
+    <string-array name="food_keto">
+        <item>Keto Burger</item>
+        <item>Keto Spaghetti and Meatballs</item>
+        <item>Keto Lasagna</item>
+        <item>Keto Chicken Wings</item>
+        <item>Keto Fruit Salad</item>
+        <item>Keto Kung Pao Chicken</item>
+        <item>Keto Corn on the Cob</item>
+    </string-array>
+
+
+
+
+
+</resources>
