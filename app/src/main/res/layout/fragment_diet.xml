@@ -150,7 +150,7 @@
                 android:layout_marginBottom="3sp"
                 android:layout_marginLeft="3sp"
                 android:layout_marginRight="3sp"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:fadeScrollbars="false"
                 >
 
                 <android.support.v4.widget.NestedScrollView
@@ -162,7 +162,8 @@
                         android:id="@+id/food_table"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:stretchColumns="1">
+                        android:stretchColumns="1"
+                        android:layout_marginRight="5sp">
 
 
 
@@ -268,204 +269,15 @@
                 android:background="@drawable/border"
                 android:layout_marginBottom="60sp"
                 android:layout_marginLeft="3sp"
-                android:layout_marginRight="3sp">
+                android:layout_marginRight="3sp"
+                android:fadeScrollbars="false">
 
                 <TableLayout
+                    android:id="@+id/recommendations"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:stretchColumns="1"
                     >
-
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-
-                            android:gravity="right"
-                            />
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-                    <TableRow>
-                        <TextView
-                            android:layout_column="1"
-                            android:text="testing"
-                            android:textSize="15dp"
-                            />
-                        <TextView
-                            android:layout_column="2"
-                            android:text="nsfifsdaif"
-                            android:textSize="15dp"
-                            android:gravity="right"
-                            />
-                    </TableRow>
-
-
                 </TableLayout>
             </ScrollView>
         <!--</LinearLayout>-->
