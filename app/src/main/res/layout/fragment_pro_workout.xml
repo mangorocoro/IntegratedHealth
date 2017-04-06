@@ -23,5 +23,6 @@
         android:layout_height="wrap_content"
         android:text="Add another exercise"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="44dp" />
 </RelativeLayout>
