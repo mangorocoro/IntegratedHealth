@@ -12,6 +12,7 @@ import android.view.View;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -20,6 +21,10 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
     AHBottomNavigation bottomNavigation;
     private String prev_class;
     HashMap<String, HashMap> taskScenarioData;
+    HashMap<String, HashMap> meta;
+    HashMap<String, ArrayList<String>> exercise_list;
+    public String current_exercise;
+    public String list_exercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,10 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
         setContentView(R.layout.activity_fragment_viewer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
+        exercise_list = new HashMap<String, ArrayList<String>>();
+        current_exercise = "";
+        list_exercise = "";
 
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnTabSelectedListener(this);
@@ -79,17 +88,23 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
 
     @Override
     public boolean onTabSelected(int position, boolean wasSelected) {
+        meta = (HashMap<String, HashMap>) taskScenarioData.get("metadata");
         //show fragment
         switch(position) {
             case 0:
                 System.out.println("case 0");
                 Intent intent = new Intent(FragmentViewer.this, HomeScreen.class);
+                intent.putExtra("currentScenario", meta.get("scenarioName") );
                 startActivity(intent);
                 break;
 
             case 1:
                 System.out.println("case 1");
                 GeneralFragment generalFragment = new GeneralFragment();
+                Bundle generalData = new Bundle();
+                taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
+                generalData.putSerializable("taskScenarioData", taskScenarioData);
+                generalFragment.setArguments(generalData);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_id, generalFragment)
@@ -99,6 +114,10 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
             case 2:
                 System.out.println("case 2");
                 FitnessFragment fitnessFragment = new FitnessFragment();
+                Bundle fitnessData = new Bundle();
+                taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
+                fitnessData.putSerializable("taskScenarioData", taskScenarioData);
+                fitnessFragment.setArguments(fitnessData);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_id, fitnessFragment)
@@ -108,6 +127,10 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
             case 3:
                 System.out.println("case 3");
                 DietFragment dietFragment = new DietFragment();
+                Bundle dietData = new Bundle();
+                taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
+                dietData.putSerializable("taskScenarioData", taskScenarioData);
+                dietFragment.setArguments(dietData);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_id,dietFragment)
