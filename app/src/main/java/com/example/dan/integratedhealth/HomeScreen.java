@@ -37,8 +37,9 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-	
-	
+
+
+        //taskscenario = (HashMap<String, HashMap>) getIntent().getSerializableExtra("taskScenarioData");
 
 
         prev_class = getIntent().getStringExtra("currentScenario");
