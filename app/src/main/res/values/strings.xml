@@ -38,6 +38,29 @@
         <item>New User</item>
     </string-array>
 
+    <string-array name="noobie1">
+        <item>20.0 lbs                          20 reps</item>
+        <item>25.0 lbs                          10 reps</item>
+        <item>30.0 lbs                          5 reps</item>
+    </string-array>
+
+    <string-array name="noobie2">
+        <item>45.0 lbs                          20 reps</item>
+        <item>55.0 lbs                          10 reps</item>
+        <item>70.0 lbs                          5 reps</item>
+    </string-array>
+
+    <string-array name="pro1">
+        <item>50.0 lbs                          20 reps</item>
+        <item>65.0 lbs                          10 reps</item>
+        <item>70.0 lbs                          5 reps</item>
+    </string-array>
+
+    <string-array name="pro2">
+        <item>135.0 lbs                          20 reps</item>
+        <item>165.0 lbs                          10 reps</item>
+        <item>180.0 lbs                          5 reps</item>
+    </string-array>
 
     <!-- Task Scenario Titles -->
     <string name="fitness_robert_title">Fitness - Robert\'s Guided Workout</string>
