@@ -2,14 +2,17 @@ package com.example.dan.integratedhealth;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
 import android.text.TextUtils;
@@ -20,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Switch;
@@ -50,7 +54,7 @@ import static android.view.View.GONE;
 import static android.view.View.SCROLL_INDICATOR_RIGHT;
 
 
-public class DietFragment extends Fragment implements View.OnClickListener{
+public class DietFragment extends DialogFragment implements View.OnClickListener{
 
 
     private String[] foods;
@@ -114,10 +118,147 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         }
         root_view=inflater.inflate(R.layout.fragment_diet,container,false);
 
-        TextView starting_weight = (TextView)root_view.findViewById(R.id.starting_weight);
-        TextView current_weight = (TextView) root_view.findViewById(R.id.current_weight);
-        TextView goal_weight = (TextView) root_view.findViewById(R.id.goal_weight);
+        final Button starting_weight = (Button)root_view.findViewById(R.id.starting_weight);
+        starting_weight.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                LayoutInflater li = LayoutInflater.from(getContext());
+                View dialogView = li.inflate(R.layout.set_weight_dialog, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                // set title
+                alertDialogBuilder.setTitle("Enter New Weight");
+                // set custom dialog icon
+                alertDialogBuilder.setIcon(android.R.drawable.ic_input_add);
+                // set custom_dialog.xml to alertdialog builder
+                alertDialogBuilder.setView(dialogView);
+                final EditText userInputWeight = (EditText) dialogView.findViewById(R.id.weight_input);
 
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        // get user input and set it to etOutput
+                                        // edit text
+                                        String newWeight= userInputWeight.getText().toString();
+                                        starting_weight.setText("Starting: " + newWeight);
+                                        diet.put("startingweight", newWeight);
+                                        scenarioData.put("diet", diet);
+                                        update_progress_bar();
+                                        //System.out.println("these are the hopefully updated general values: " + general.values());
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+            }
+        });
+
+
+
+        final Button current_weight = (Button) root_view.findViewById(R.id.current_weight);
+
+        current_weight.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                LayoutInflater li = LayoutInflater.from(getContext());
+                View dialogView = li.inflate(R.layout.set_weight_dialog, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                // set title
+                alertDialogBuilder.setTitle("Enter New Weight");
+                // set custom dialog icon
+                alertDialogBuilder.setIcon(android.R.drawable.ic_input_add);
+                // set custom_dialog.xml to alertdialog builder
+                alertDialogBuilder.setView(dialogView);
+                final EditText userInputWeight = (EditText) dialogView.findViewById(R.id.weight_input);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        // get user input and set it to etOutput
+                                        // edit text
+                                        String newWeight= userInputWeight.getText().toString();
+                                        current_weight.setText("Current: " + newWeight);
+                                        general.put("weight", newWeight);
+                                        scenarioData.put("general", general);
+                                        update_progress_bar();
+                                        //System.out.println("these are the hopefully updated general values: " + general.values());
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+            }
+        });
+
+
+        final Button goal_weight = (Button) root_view.findViewById(R.id.goal_weight);
+
+        goal_weight.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                LayoutInflater li = LayoutInflater.from(getContext());
+                View dialogView = li.inflate(R.layout.set_weight_dialog, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                // set title
+                alertDialogBuilder.setTitle("Enter New Weight");
+                // set custom dialog icon
+                alertDialogBuilder.setIcon(android.R.drawable.ic_input_add);
+                // set custom_dialog.xml to alertdialog builder
+                alertDialogBuilder.setView(dialogView);
+                final EditText userInputWeight = (EditText) dialogView.findViewById(R.id.weight_input);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        // get user input and set it to etOutput
+                                        // edit text
+                                        String newWeight= userInputWeight.getText().toString();
+                                        goal_weight.setText("Goal: " + newWeight);
+                                        diet.put("goalweight", newWeight);
+                                        scenarioData.put("diet", diet);
+                                        update_progress_bar();
+                                        //System.out.println("these are the hopefully updated general values: " + general.values());
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+            }
+        });
+
+        starting_weight.setText("Starting: " + diet.get("startingweight"));
         current_weight.setText("Current: "+ general.get("weight"));
         goal_weight.setText("Goal: " + diet.get("goalweight"));
 
@@ -148,7 +289,12 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         custom_button.setOnClickListener(this);
 
         ProgressBar progress_bar = (ProgressBar) root_view.findViewById(R.id.diet_progress_bar);
-        progress_bar.setProgress(90);
+        if (diet.get("startingweight") != null && diet.get("goalweight") != null && general.get("weight") != null) {
+            progress_bar.setProgress((int)calculate_progress(Double.parseDouble(diet.get("startingweight")), Double.parseDouble(general.get("weight")), Double.parseDouble(diet.get("goalweight"))));
+            System.out.println("aaaa" + (int)calculate_progress(Double.parseDouble(diet.get("startingweight")), Double.parseDouble(general.get("weight")), Double.parseDouble(diet.get("goalweight"))));
+        } else {
+            progress_bar.setProgress(0);
+        }
 
         foods = this.getResources().getStringArray(R.array.food_keys);
         calories = this.getResources().getStringArray(R.array.food_values);
@@ -238,6 +384,16 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         actionBar.setTitle("Diet Information for " + meta.get("name"));
 
         return root_view;
+    }
+
+    public void update_progress_bar(){
+        ProgressBar progress_bar = (ProgressBar) root_view.findViewById(R.id.diet_progress_bar);
+        if (diet.get("startingweight") != null && diet.get("goalweight") != null && general.get("weight") != null) {
+            progress_bar.setProgress((int)calculate_progress(Double.parseDouble(diet.get("startingweight")), Double.parseDouble(general.get("weight")), Double.parseDouble(diet.get("goalweight"))));
+            System.out.println("aaaa" + (int)calculate_progress(Double.parseDouble(diet.get("startingweight")), Double.parseDouble(general.get("weight")), Double.parseDouble(diet.get("goalweight"))));
+        } else {
+            progress_bar.setProgress(0);
+        }
     }
 
     public void change_highlighted_button() {
@@ -424,8 +580,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
             Button add_food_suggestion = new Button(getActivity());
             add_food_suggestion.setGravity(Gravity.RIGHT);
             add_food_suggestion.setText("Add Me!");
-            add_food_suggestion.setBackgroundResource(android.R.drawable.btn_plus);
-            add_food_suggestion.setTextSize(12);
+            //add_food_suggestion.setBackgroundResource(android.R.drawable.ic_menu_add);
+            add_food_suggestion.setTextSize(11);
             add_food_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
             add_food_suggestion.setOnClickListener(new View.OnClickListener(){
 
@@ -449,7 +605,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
             view_recipe_suggestion.setGravity(Gravity.RIGHT);
             view_recipe_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT,1f));
             view_recipe_suggestion.setText("Recipe");
-            view_recipe_suggestion.setTextSize(12);
+            //view_recipe_suggestion.setBackgroundResource(android.R.drawable.ic_dialog_info);
+            view_recipe_suggestion.setTextSize(11);
             new_food_suggestion.setText(curr_food);
             new_food_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT,1f));
             new_row.addView(new_food_suggestion);
@@ -542,8 +699,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     }
 
 
-    public int calculate_progress(int starting_weight, int curr_weight, int goal_weight) {
-        return ((starting_weight - curr_weight)/(starting_weight - goal_weight));
+    public double calculate_progress(double starting_weight, double curr_weight, double goal_weight) {
+        return (Math.abs(starting_weight - curr_weight)/Math.abs(starting_weight - goal_weight))*100;
     }
 
     //adds the food to the food table
@@ -657,6 +814,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
         Button remove_button = new Button(getActivity());
         remove_button.setVisibility(View.GONE);
+        remove_button.setBackgroundResource(android.R.drawable.ic_menu_close_clear_cancel);
         remove_button.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v) {
@@ -911,7 +1069,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     private String read_from_file(Context context, String filename) {
 
-        System.out.println(filename);
+        //System.out.println(filename);
 
         String ret = "";
 
