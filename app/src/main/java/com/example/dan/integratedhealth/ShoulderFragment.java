@@ -33,6 +33,8 @@ public class ShoulderFragment extends Fragment {
                 DataEntryFragment dataEntryFragment = new DataEntryFragment();
                 switch(i){
                     case 0:
+                        FragmentViewer fv = (FragmentViewer) getActivity();
+                        fv.current_exercise = "Overhead Press";
                         getFragmentManager().beginTransaction().replace(R.id.content_id,dataEntryFragment).addToBackStack("Overhead Press").commit();
                         break;
                     case 1:

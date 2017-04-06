@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 import static android.R.id.list;
 
 /**
@@ -32,7 +34,7 @@ import static android.R.id.list;
  */
 
 public class DataEntryFragment extends Fragment {
-
+    String exercise_name;
     private View view;
     ImageButton wght_plus;
     ImageButton wght_minus;
@@ -53,6 +55,37 @@ public class DataEntryFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_data, container, false);
+        FragmentViewer f = (FragmentViewer) getActivity();
+        if(!f.list_exercise.equals("")){
+            final ArrayAdapter<String> adapter;
+            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, f.exercise_list.get(f.current_exercise));
+            final ListView l = (ListView) view.findViewById(R.id.list_results);
+            wght_txt = (EditText) view.findViewById(R.id.Weight);
+            rep_txt = (EditText) view.findViewById(R.id.Reps);
+            l.setAdapter(adapter);
+            l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View v1, int position, long id) {
+                    TextView w = (TextView) l.getChildAt(position);
+                    Matcher m = Pattern.compile("\\d+\\.\\d+").matcher(w.getText().toString());
+                    int counter = 0;
+                    while (m.find()) {
+                        if (counter == 0) {
+                            wght_txt.setText(m.group(0));
+                        } else {
+                            rep_txt.setText(m.group(0));
+                        }
+                        counter++;
+                    }
+                    update = (Button) view.findViewById(R.id.save);
+                    update.setText("Update");
+                    delete = (Button) view.findViewById(R.id.clear);
+                    delete.setText("Delete");
+                    selected = position;
+                }
+            });
+
+        }
         wght_txt = (EditText) view.findViewById(R.id.Weight);
         rep_txt = (EditText) view.findViewById(R.id.Reps);
 
@@ -197,10 +230,20 @@ public class DataEntryFragment extends Fragment {
 
                         final ArrayAdapter<String> adapter;
 
-                        float weight_key = Float.parseFloat(wght_temp);
-                        float rep_value = Float.parseFloat(rep_temp);
-                        String entry = wght_temp + " lbs                         ";
-                        entry += rep_temp + " reps";
+                        String weight_key, rep_value;
+                        if(wght_temp.equals("")) {
+                            weight_key = "0";
+                        }  else {
+                            weight_key = wght_temp;
+                        }
+                        if (rep_temp.equals("")){
+                            rep_value = "0";
+                        } else {
+                            rep_value = rep_temp;
+                        }
+
+                        String entry = weight_key + " lbs                         ";
+                        entry += rep_value + " reps";
                         results.add(entry);
 
                         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, results);
@@ -236,6 +279,16 @@ public class DataEntryFragment extends Fragment {
             }
 
         });
+        FragmentViewer fv = (FragmentViewer) getActivity();
+        fv.exercise_list.put(fv.current_exercise, results);
+
+
         return view;
     }
+    public void onBackPress(){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        fm.popBackStack();
+    }
+
+
 }
