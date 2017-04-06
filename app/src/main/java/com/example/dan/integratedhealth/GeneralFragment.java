@@ -358,15 +358,14 @@ public class GeneralFragment extends Fragment {
     private void suggestions() {
 
         meta = scenarioData.get("metadata");
+        int suggestionCount = 0;
         if (!meta.get("name").equals("newuser")) {
             /* hardcoded for stressed out Jimmy */
             String[] parsedHeartrate = (((TextView) rootView.findViewById(R.id.heartrate_content)).getText().toString()).split(" ");
             int heartrateValue = Integer.parseInt(parsedHeartrate[0]);
+            TableLayout suggestionsBox = (TableLayout) rootView.findViewById(R.id.table_suggestions_content);
 
             if (heartrateValue > 175) {
-
-                TableLayout suggestionsBox = (TableLayout) rootView.findViewById(R.id.table_suggestions_content);
-
                 TextView chilloutMessage = new TextView(getContext());
                 chilloutMessage.setText("Hey Jimmy, it looks like you're feeling a bit stressed out there. Give this song a listen.");
 
@@ -380,7 +379,7 @@ public class GeneralFragment extends Fragment {
                 suggestionsBox.addView(chilloutMusic);
 
 
-            /* also show a toast message with a link to click on */
+            /* also show a message with a link to click on */
                 Intent notificationIntent = new Intent(Intent.ACTION_VIEW);
                 notificationIntent.setData(Uri.parse("https://youtu.be/yIYLbf-qHfY"));
                 PendingIntent pi = PendingIntent.getActivity(getContext(), 0, notificationIntent, 0);
@@ -395,9 +394,81 @@ public class GeneralFragment extends Fragment {
                         .build();
                 NotificationManager notificationManager2 =  (NotificationManager) getContext().getSystemService(Service.NOTIFICATION_SERVICE);
                 notificationManager2.notify(0, notification);
+                suggestionCount++;
+            }
+
+            if (general.get("guthealth").equals("Diarrheal")) {
+
+                if (suggestionCount > 0) {
+                    TextView spacer = new TextView(getContext());
+                    spacer.setText("************");
+                    suggestionsBox.addView(spacer);
+                }
+
+                TextView diarrheaConsolation= new TextView(getContext());
+                diarrheaConsolation.setText("It looks like you're suffering with a case of the runs! Make sure you drink plenty of fluids and get some electrolytes! " +
+                        "Avoid spicy foods, fruits, alcohol, and caffeine until 48 hours after all symptoms have disappeared.\n" +
+                        "Avoid chewing gum that contains sorbitol.\n" +
+                        "Avoid milk for 3 days after symptoms disappear. You can eat cheese or yogurt with probiotics.");
+
+                TextView webLink = new TextView(getContext());
+                webLink.setClickable(true);
+                webLink.setMovementMethod(LinkMovementMethod.getInstance());
+                String infoLink = "<a href='http://www.webmd.com/digestive-disorders/tc/diarrhea-age-12-and-older-home-treatment#1'> WebMD Home Remedy </a>";
+                webLink.setText(Html.fromHtml(infoLink));
+
+                suggestionsBox.addView(diarrheaConsolation);
+                suggestionsBox.addView(webLink);
+                suggestionCount++;
+            }
+
+            if (general.get("guthealth").equals("Constipated")) {
+                if (suggestionCount > 0) {
+                    TextView spacer = new TextView(getContext());
+                    spacer.setText("************");
+                    suggestionsBox.addView(spacer);
+                }
+
+                TextView constipationSolution = new TextView(getContext());
+                constipationSolution.setText("It looks like you've been having some trouble passing your stool. " +
+                        "Make sure you eat plenty of fiber and water. Try navigating to the diet section to see a list of foods high in fiber to add to your diet! " +
+                        "Drink two to four extra glasses of water a day, unless your doctor told you to limit fluids for another reason.\n" +
+                        "Try warm liquids, especially in the morning.\n" +
+                        "Add fruits and vegetables to your diet.\n" +
+                        "Eat prunes and bran cereal.\n" +
+                        "If needed, use a very mild over-the-counter stool softener like docusate or a laxative like magnesium hydroxide. " +
+                        "Don’t use laxatives for more than 2 weeks without calling your doctor. If you overdo it, your symptoms may get worse.");
+
+                TextView webLink = new TextView(getContext());
+                webLink.setClickable(true);
+                webLink.setMovementMethod(LinkMovementMethod.getInstance());
+                String infoLink = "<a href='http://www.webmd.com/digestive-disorders/digestive-diseases-constipation#1'> WebMD Home Remedy </a>";
+                webLink.setText(Html.fromHtml(infoLink));
+
+                suggestionsBox.addView(constipationSolution);
+                suggestionsBox.addView(webLink);
+            }
+
+            if (general.get("hydration").equals("Dehydrated")) {
+                TextView dehydrationMessage = new TextView(getContext());
+                dehydrationMessage.setText("It looks like you should be drinking a lot more water. You should " +
+                        "should try to drink 2 quarts of fluid, such as water, juice, or sports drinks (clear fluids, best), " +
+                        "in 2 to 4 hours. But it is better to drink small amounts of fluid often (sips every few minutes), " +
+                        "because drinking too much fluid at once can induce vomiting.");
+
+                TextView webLink = new TextView(getContext());
+                webLink.setClickable(true);
+                webLink.setMovementMethod(LinkMovementMethod.getInstance());
+                String infoLink = "<a href='http://www.webmd.com/first-aid/dehydration-in-adults-treatment'> WebMD Home Remedy </a>";
+                webLink.setText(Html.fromHtml(infoLink));
+
+                suggestionsBox.addView(dehydrationMessage);
+                suggestionsBox.addView(webLink);
             }
 
         }
+
+
 
 
 

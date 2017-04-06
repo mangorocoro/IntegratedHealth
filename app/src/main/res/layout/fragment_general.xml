@@ -280,13 +280,19 @@
             android:textStyle="bold"/>
     </TableLayout>
 
-    <TableLayout
-        android:id="@+id/table_suggestions_content"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/table_suggestions_title"
         android:background="@drawable/border">
-    </TableLayout>
+        <TableLayout
+            android:id="@+id/table_suggestions_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/table_suggestions_title">
+        </TableLayout>
+    </ScrollView>
+
 
 
 
