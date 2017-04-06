@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-
 public class FragmentViewer extends AppCompatActivity implements AHBottomNavigation.OnTabSelectedListener {
 
     AHBottomNavigation bottomNavigation;
@@ -33,9 +32,6 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
         setContentView(R.layout.activity_fragment_viewer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        //extract hashtable from bundle passed in
         taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
         exercise_list = new HashMap<String, ArrayList<String>>();
         current_exercise = "";
@@ -48,7 +44,10 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
         this.createNavItems();
 
 
-
+        //extract hashtable from bundle passed in
+        taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
+        System.out.print("taskScenarioData");
+        System.out.println(taskScenarioData.values());
 
     }
 
@@ -89,64 +88,49 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
 
     @Override
     public boolean onTabSelected(int position, boolean wasSelected) {
-
         meta = (HashMap<String, HashMap>) taskScenarioData.get("metadata");
-        System.out.print("meta is ");
-        System.out.println(meta);
-
         //show fragment
         switch(position) {
-            /* navigate to home */
             case 0:
                 System.out.println("case 0");
-
                 Intent intent = new Intent(FragmentViewer.this, HomeScreen.class);
                 intent.putExtra("currentScenario", meta.get("scenarioName") );
                 startActivity(intent);
                 break;
 
-            /* navigate to general */
             case 1:
                 System.out.println("case 1");
-
                 GeneralFragment generalFragment = new GeneralFragment();
                 Bundle generalData = new Bundle();
                 taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
                 generalData.putSerializable("taskScenarioData", taskScenarioData);
                 generalFragment.setArguments(generalData);
-
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_id, generalFragment)
                         .commit();
                 break;
 
-            /* navigate to fitness */
             case 2:
                 System.out.println("case 2");
-
                 FitnessFragment fitnessFragment = new FitnessFragment();
                 Bundle fitnessData = new Bundle();
                 taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
                 fitnessData.putSerializable("taskScenarioData", taskScenarioData);
                 fitnessFragment.setArguments(fitnessData);
-
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_id, fitnessFragment)
                         .commit();
                 break;
 
-            /* navigate to diet */
             case 3:
                 System.out.println("case 3");
-
                 DietFragment dietFragment = new DietFragment();
                 Bundle dietData = new Bundle();
                 taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
                 dietData.putSerializable("taskScenarioData", taskScenarioData);
                 dietFragment.setArguments(dietData);
-
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_id,dietFragment)
