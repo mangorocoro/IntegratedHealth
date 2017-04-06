@@ -71,7 +71,7 @@ public class GeneralFragment extends Fragment {
         actionBar.setTitle("General Health for " + meta.get("name"));
 
 
-        if (!meta.get("name").equals("newuser")) {
+        if (meta.get("name").equals("newuser")) {
 
             TextView heartRateContentView = (TextView) rootView.findViewById(R.id.heartrate_content);
             heartRateContentView.setOnClickListener(new View.OnClickListener() {
