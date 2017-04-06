@@ -3,6 +3,7 @@ package com.example.dan.integratedhealth;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -80,12 +81,14 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     private int goal_fats = 0;
     private int goal_carbs = 0;
     private int goal_sugars = 0;
+    private int goal_calories = 2000;
 
     private String diet_plan = "traditional";
 
     private HashMap<String,HashMap> scenarioData;
     private HashMap<String, String> meta;
     private HashMap<String, String> diet;
+    private HashMap<String, String> general;
 
 
     @Override
@@ -107,10 +110,16 @@ public class DietFragment extends Fragment implements View.OnClickListener{
             scenarioData = (HashMap)getArguments().getSerializable("taskScenarioData");
             meta = scenarioData.get("metadata");
             diet = scenarioData.get("diet");
+            general = scenarioData.get("general");
         }
-
-
         root_view=inflater.inflate(R.layout.fragment_diet,container,false);
+
+        TextView starting_weight = (TextView)root_view.findViewById(R.id.starting_weight);
+        TextView current_weight = (TextView) root_view.findViewById(R.id.current_weight);
+        TextView goal_weight = (TextView) root_view.findViewById(R.id.goal_weight);
+
+        current_weight.setText("Current: "+ general.get("weight"));
+        goal_weight.setText("Goal: " + diet.get("goalweight"));
 
         //add_food_view = inflater.inflate(R.layout.fragment_addfood, container, false);
 
@@ -174,7 +183,9 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                                 calories_view.setText(get_macronutrients(food_item.getText().toString()));
                                 //calories_view.setEllipsize(TextUtils.TruncateAt.START);
                                 //calories_view.setText(get_calories(food_item.getText().toString()));
-                                update_table_to_verbose();
+                                //update_table_to_verbose();
+                                calories_view.setTextSize(10);
+                                update_calories_table();
 
 
                             }
@@ -192,6 +203,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                             TextView calories_view = (TextView) food_table_row.getChildAt(2);
                             if (calories_view != null) {
                                 calories_view.setText(get_calories(food_item.getText().toString()));
+                                calories_view.setTextSize(15);
                                 update_calories_table();
                             }
 
@@ -231,16 +243,65 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         return root_view;
     }
 
+    public void change_highlighted_button() {
+        Button traditional_button = (Button) root_view.findViewById(R.id.traditional_button);
+        Button vegetarian_button = (Button) root_view.findViewById(R.id.vegetarian_button);
+        Button atkins_button = (Button) root_view.findViewById(R.id.atkins_button);
+        Button keto_button = (Button) root_view.findViewById(R.id.keto_button);
+        Button custom_button = (Button) root_view.findViewById(R.id.custom_button);
+
+        switch(diet_plan){
+            case "traditional":
+                traditional_button.setBackgroundColor(Color.CYAN);
+                vegetarian_button.setBackgroundResource(android.R.drawable.btn_default);
+                atkins_button.setBackgroundResource(android.R.drawable.btn_default);
+                keto_button.setBackgroundResource(android.R.drawable.btn_default);
+                custom_button.setBackgroundResource(android.R.drawable.btn_default);
+                break;
+            case "vegetarian":
+                traditional_button.setBackgroundResource(android.R.drawable.btn_default);
+                vegetarian_button.setBackgroundColor(Color.CYAN);
+                atkins_button.setBackgroundResource(android.R.drawable.btn_default);
+                keto_button.setBackgroundResource(android.R.drawable.btn_default);
+                custom_button.setBackgroundResource(android.R.drawable.btn_default);
+                break;
+            case "atkins":
+                traditional_button.setBackgroundResource(android.R.drawable.btn_default);
+                vegetarian_button.setBackgroundResource(android.R.drawable.btn_default);
+                atkins_button.setBackgroundColor(Color.CYAN);
+                keto_button.setBackgroundResource(android.R.drawable.btn_default);
+                custom_button.setBackgroundResource(android.R.drawable.btn_default);
+                break;
+            case "keto":
+                traditional_button.setBackgroundResource(android.R.drawable.btn_default);
+                vegetarian_button.setBackgroundResource(android.R.drawable.btn_default);
+                atkins_button.setBackgroundResource(android.R.drawable.btn_default);
+                keto_button.setBackgroundColor(Color.CYAN);
+                custom_button.setBackgroundResource(android.R.drawable.btn_default);
+                break;
+            case "custom":
+                traditional_button.setBackgroundResource(android.R.drawable.btn_default);
+                vegetarian_button.setBackgroundResource(android.R.drawable.btn_default);
+                atkins_button.setBackgroundResource(android.R.drawable.btn_default);
+                keto_button.setBackgroundResource(android.R.drawable.btn_default);
+                custom_button.setBackgroundColor(Color.CYAN);
+                break;
+        }
+    }
+
     @Override
     public void onClick(View v) {
 
         switch(v.getId()) {
             case R.id.traditional_button:
+                Button traditional_button = (Button) root_view.findViewById(R.id.traditional_button);
+                traditional_button.setBackgroundColor(Color.CYAN);
                 goal_carbs = 300;
                 goal_fats = 50;
                 goal_proteins = 150;
                 goal_sugars = 20;
                 diet_plan = "traditional";
+                change_highlighted_button();
                 setup_recommendations();
                 update_macronutrients();
                 add_goal_macros_to_file();
@@ -252,6 +313,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 goal_proteins = 100;
                 goal_sugars = 20;
                 diet_plan = "vegetarian";
+                change_highlighted_button();
                 setup_recommendations();
                 update_macronutrients();
                 add_goal_macros_to_file();
@@ -263,6 +325,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 goal_proteins = 300;
                 goal_sugars = 200;
                 diet_plan = "atkins";
+                change_highlighted_button();
                 setup_recommendations();
                 update_macronutrients();
                 add_goal_macros_to_file();
@@ -274,13 +337,15 @@ public class DietFragment extends Fragment implements View.OnClickListener{
                 goal_proteins = 100;
                 goal_sugars = 50;
                 diet_plan = "keto";
+                change_highlighted_button();
                 setup_recommendations();
                 update_macronutrients();
                 add_goal_macros_to_file();
                 break;
 
             case R.id.custom_button:
-                diet_plan = "traditional";
+                diet_plan = "custom";
+                change_highlighted_button();
                 setup_recommendations();
                 Intent custom_macros = new Intent(getActivity().getApplicationContext(), CustomMacrosActivity.class);
                 startActivityForResult(custom_macros, REQUEST_CODE_CUSTOM_MACROS);
@@ -362,7 +427,8 @@ public class DietFragment extends Fragment implements View.OnClickListener{
             Button add_food_suggestion = new Button(getActivity());
             add_food_suggestion.setGravity(Gravity.RIGHT);
             add_food_suggestion.setText("Add Me!");
-            add_food_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            add_food_suggestion.setTextSize(12);
+            add_food_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
             add_food_suggestion.setOnClickListener(new View.OnClickListener(){
 
                 public void onClick(View v) {
@@ -383,10 +449,11 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
 
             view_recipe_suggestion.setGravity(Gravity.RIGHT);
-            view_recipe_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            view_recipe_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT,1f));
             view_recipe_suggestion.setText("Recipe");
+            view_recipe_suggestion.setTextSize(12);
             new_food_suggestion.setText(curr_food);
-            new_food_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            new_food_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT,1f));
             new_row.addView(new_food_suggestion);
             new_row.addView(add_food_suggestion);
             new_row.addView(view_recipe_suggestion);
@@ -409,6 +476,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
         interpret_goal_macros_file(read_from_file(getActivity().getApplicationContext(), meta.get("name") + "2.txt"));
         update_macronutrients();
         setup_recommendations();
+        change_highlighted_button();
 
 
     }
@@ -491,22 +559,22 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
     public void update_proteins_textview(){
         TextView protein_textview = (TextView) root_view.findViewById(R.id.protein_textview);
-        protein_textview.setText(String.valueOf(total_proteins) + "/" + String.valueOf(goal_proteins) + "g protein");
+        protein_textview.setText(String.valueOf((int)total_proteins) + "/" + String.valueOf(goal_proteins) + "g protein");
 
     }
     public void update_fats_textview(){
         TextView fats_textview = (TextView) root_view.findViewById(R.id.fats_textview);
-        fats_textview.setText(String.valueOf(total_fats) + "/" + String.valueOf(goal_fats) + "g fats");
+        fats_textview.setText(String.valueOf((int)total_fats) + "/" + String.valueOf(goal_fats) + "g fats");
 
     }
     public void update_carbs_textview(){
         TextView carbs_textview = (TextView) root_view.findViewById(R.id.carbs_textview);
-        carbs_textview.setText(String.valueOf(total_carbs) + "/" + String.valueOf(goal_carbs) + "g carbs");
+        carbs_textview.setText(String.valueOf((int)total_carbs) + "/" + String.valueOf(goal_carbs) + "g carbs");
 
     }
     public void update_sugars_textview(){
         TextView sugars_textview = (TextView) root_view.findViewById(R.id.sugars_textview);
-        sugars_textview.setText(String.valueOf(total_sugars) + "/" + String.valueOf(goal_sugars) + "g sugars");
+        sugars_textview.setText(String.valueOf((int)total_sugars) + "/" + String.valueOf(goal_sugars) + "g sugars");
 
     }
 
@@ -535,6 +603,11 @@ public class DietFragment extends Fragment implements View.OnClickListener{
             toast.show();
             warning = true;
             add_goal_macros_to_file();
+        } else if ((total_calories > goal_calories) && (!warning)) {
+            Toast toast = Toast.makeText(getActivity(), "Be careful, your calories are a little high!" , Toast.LENGTH_LONG);
+            toast.show();
+            warning = true;
+            add_goal_macros_to_file();
         }
 
     }
@@ -542,7 +615,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     //increases the total calories count
     public void update_calories_table(){
         TextView calories_textview = (TextView) root_view.findViewById(R.id.total_calories);
-        calories_textview.setText(String.valueOf(total_calories) + " calories");
+        calories_textview.setText(String.valueOf(total_calories) + "/" + String.valueOf(goal_calories) + " calories");
     }
 
     public String total_macronutrients_string() {
@@ -585,15 +658,14 @@ public class DietFragment extends Fragment implements View.OnClickListener{
 
         TextView new_food = new TextView(getActivity());
         TextView new_food_calories = new TextView(getActivity());
-        new_food.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        new_food.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
         new_food_calories.setGravity(Gravity.RIGHT);
         //the new LayoutParams needs to be set to the PARENT. in this case, needs to be set to tablerow
-        new_food_calories.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
-        //new_food_calories.canScrollHorizontally(SCROLL_INDICATOR_RIGHT);
+        new_food_calories.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0.5f));
         new_food.setText(food);
-        new_food.setTextSize(11);
+        new_food.setTextSize(15);
         new_food_calories.setText(get_calories(food));
-        new_food_calories.setTextSize(11);
+        new_food_calories.setTextSize(15);
         //System.out.println(get_calories(food));
         new_row.addView(remove_button);
         new_row.addView(new_food);
