@@ -45,8 +45,8 @@ public class GeneralFragment extends Fragment {
     private HashMap<String,HashMap> scenarioData;
     private HashMap<String, String> meta;
     private HashMap<String, String> general;
-    EditText heightContent;
-    EditText weightContent;
+    TextView heightContent;
+    TextView weightContent;
 
     @Nullable
     @Override
@@ -150,8 +150,8 @@ public class GeneralFragment extends Fragment {
         }
 
 
-        heightContent = (EditText) rootView.findViewById(R.id.height_content);
-        weightContent = (EditText) rootView.findViewById(R.id.weight_content);
+        heightContent = (TextView) rootView.findViewById(R.id.height_content);
+        weightContent = (TextView) rootView.findViewById(R.id.weight_content);
 
         heightContent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -166,9 +166,9 @@ public class GeneralFragment extends Fragment {
                 alertDialogBuilder.setIcon(R.drawable.height);
                 // set custom_dialog.xml to alertdialog builder
                 alertDialogBuilder.setView(dialogView);
-                final EditText userInputFeet = (EditText) dialogView.findViewById(R.id.feet_input);
+                final TextView userInputFeet = (TextView) dialogView.findViewById(R.id.feet_input);
 
-                final EditText userInputInches = (EditText) dialogView.findViewById(R.id.inches_input);
+                final TextView userInputInches = (TextView) dialogView.findViewById(R.id.inches_input);
 
                 // set dialog message
                 alertDialogBuilder
@@ -221,7 +221,7 @@ public class GeneralFragment extends Fragment {
                 alertDialogBuilder.setIcon(R.drawable.height);
                 // set custom_dialog.xml to alertdialog builder
                 alertDialogBuilder.setView(dialogView);
-                final EditText userInputWeight = (EditText) dialogView.findViewById(R.id.weight_input);
+                final TextView userInputWeight = (TextView) dialogView.findViewById(R.id.weight_input);
 
                 // set dialog message
                 alertDialogBuilder
@@ -290,8 +290,8 @@ public class GeneralFragment extends Fragment {
         HashMap<String, String> generalHash = hash.get("general");
 
         TextView heartrateView = (TextView) rootView.findViewById(R.id.heartrate_content);
-        EditText heightView = (EditText) rootView.findViewById(R.id.height_content);
-        EditText weightView = (EditText) rootView.findViewById(R.id.weight_content);
+        TextView heightView = (TextView) rootView.findViewById(R.id.height_content);
+        TextView weightView = (TextView) rootView.findViewById(R.id.weight_content);
         TextView bmiView = (TextView) rootView.findViewById(R.id.bmi_content);
         TextView gutView = (TextView) rootView.findViewById(R.id.guthealth_content);
         TextView hydrationView = (TextView) rootView.findViewById(R.id.hydration_content);
