@@ -77,10 +77,10 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     private String added_food_name;
     private int added_calories;
 
-    private int goal_proteins = 0;
-    private int goal_fats = 0;
-    private int goal_carbs = 0;
-    private int goal_sugars = 0;
+    private int goal_proteins = 150;
+    private int goal_fats = 50;
+    private int goal_carbs = 300;
+    private int goal_sugars = 20;
     private int goal_calories = 2000;
 
     private String diet_plan = "traditional";
@@ -424,6 +424,7 @@ public class DietFragment extends Fragment implements View.OnClickListener{
             Button add_food_suggestion = new Button(getActivity());
             add_food_suggestion.setGravity(Gravity.RIGHT);
             add_food_suggestion.setText("Add Me!");
+            add_food_suggestion.setBackgroundResource(android.R.drawable.btn_plus);
             add_food_suggestion.setTextSize(12);
             add_food_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
             add_food_suggestion.setOnClickListener(new View.OnClickListener(){
@@ -481,10 +482,32 @@ public class DietFragment extends Fragment implements View.OnClickListener{
     private void interpret_goal_macros_file(String string) {
         String[] macros = string.split(" ");
         //System.out.println(string);
-        goal_carbs = Integer.parseInt(macros[0]);
-        goal_fats = Integer.parseInt(macros[1]);
-        goal_proteins = Integer.parseInt(macros[2]);
-        goal_sugars = Integer.parseInt(macros[3]);
+        if (macros.length > 1) {
+            if (!macros[0].equals("")) {
+                goal_carbs = Integer.parseInt(macros[0]);
+            } else {
+                goal_carbs = 0;
+            }
+
+            if (!macros[1].equals("")) {
+                goal_fats = Integer.parseInt(macros[1]);
+            } else {
+                goal_fats = 0;
+            }
+
+            if (!macros[2].equals("")) {
+                goal_proteins = Integer.parseInt(macros[2]);
+            } else {
+                goal_proteins = 0;
+            }
+
+            if (!macros[3].equals("")) {
+                goal_sugars = Integer.parseInt(macros[3]);
+            } else {
+                goal_sugars = 0;
+            }
+        }
+
 
         //System.out.println("VALUE OF WARNING"+String.valueOf(warning));
 
