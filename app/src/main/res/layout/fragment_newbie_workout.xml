@@ -6,7 +6,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="111dp"
-        android:id="@+id/listView"
+        android:id="@+id/noob1"
         android:entries="@array/noobie1"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
@@ -14,8 +14,9 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:layout_below="@+id/listView"
+        android:layout_below="@+id/noob1"
         android:layout_alignParentStart="true"
+        android:id="@+id/noob2"
         android:layout_marginTop="23dp"
         android:entries="@array/noobie2"/>
 
