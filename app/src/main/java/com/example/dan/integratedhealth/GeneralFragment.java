@@ -406,10 +406,13 @@ public class GeneralFragment extends Fragment {
                 }
 
                 TextView diarrheaConsolation= new TextView(getContext());
-                diarrheaConsolation.setText("It looks like you're suffering with a case of the runs! Make sure you drink plenty of fluids and get some electrolytes! " +
+                diarrheaConsolation.setText("It looks like you're suffering with a case of the runs!\n" +
+                        " \n" +
+                        "Make sure you drink plenty of fluids and get some electrolytes! " +
                         "Avoid spicy foods, fruits, alcohol, and caffeine until 48 hours after all symptoms have disappeared.\n" +
+                        " \n" +
                         "Avoid chewing gum that contains sorbitol.\n" +
-                        "Avoid milk for 3 days after symptoms disappear. You can eat cheese or yogurt with probiotics.");
+                        "Avoid milk for 3 days after symptoms disappear. You can eat cheese or yogurt with probiotics.\n");
 
                 TextView webLink = new TextView(getContext());
                 webLink.setClickable(true);
@@ -430,12 +433,15 @@ public class GeneralFragment extends Fragment {
                 }
 
                 TextView constipationSolution = new TextView(getContext());
-                constipationSolution.setText("It looks like you've been having some trouble passing your stool. " +
-                        "Make sure you eat plenty of fiber and water. Try navigating to the diet section to see a list of foods high in fiber to add to your diet! " +
+                constipationSolution.setText("It looks like you've been having some trouble passing your stool. \n" +
+                        " \n" +
+                        "Make sure you eat plenty of fiber and water. Try navigating to the diet section to see a list of foods high in fiber to add to your diet! \n" +
                         "Drink two to four extra glasses of water a day, unless your doctor told you to limit fluids for another reason.\n" +
                         "Try warm liquids, especially in the morning.\n" +
+                        " \n" +
                         "Add fruits and vegetables to your diet.\n" +
                         "Eat prunes and bran cereal.\n" +
+                        " \n" +
                         "If needed, use a very mild over-the-counter stool softener like docusate or a laxative like magnesium hydroxide. " +
                         "Don’t use laxatives for more than 2 weeks without calling your doctor. If you overdo it, your symptoms may get worse.");
 
@@ -451,8 +457,9 @@ public class GeneralFragment extends Fragment {
 
             if (general.get("hydration").equals("Dehydrated")) {
                 TextView dehydrationMessage = new TextView(getContext());
-                dehydrationMessage.setText("It looks like you should be drinking a lot more water. You should " +
-                        "should try to drink 2 quarts of fluid, such as water, juice, or sports drinks (clear fluids, best), " +
+                dehydrationMessage.setText("It looks like you should be drinking a lot more water.\n" +
+                        " \n" + 
+                        "You should should try to drink 2 quarts of fluid, such as water, juice, or sports drinks (clear fluids, best), " +
                         "in 2 to 4 hours. But it is better to drink small amounts of fluid often (sips every few minutes), " +
                         "because drinking too much fluid at once can induce vomiting.");
 
