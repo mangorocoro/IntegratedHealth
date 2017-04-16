@@ -15,14 +15,14 @@
 
         <TableRow>
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/heart_img"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     app:srcCompat="@mipmap/heartmeasuringtape" />
@@ -36,7 +36,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
@@ -51,14 +51,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/height_img"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     app:srcCompat="@mipmap/measuringtape" />
@@ -74,7 +74,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
@@ -100,14 +100,14 @@
 
         <TableRow>
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/scale_imd"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     app:srcCompat="@mipmap/scale" />
@@ -121,7 +121,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
@@ -135,14 +135,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/bmi_img"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     app:srcCompat="@mipmap/waistmeasurement" />
@@ -158,7 +158,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
@@ -184,14 +184,14 @@
 
         <TableRow>
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/poop_id"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     app:srcCompat="@drawable/happypoop" />
@@ -205,7 +205,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
@@ -220,14 +220,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/urine_img"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     app:srcCompat="@mipmap/waterbottles" />
@@ -243,7 +243,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
