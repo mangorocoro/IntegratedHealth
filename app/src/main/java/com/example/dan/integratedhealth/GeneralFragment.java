@@ -458,7 +458,7 @@ public class GeneralFragment extends Fragment {
             if (general.get("hydration").equals("Dehydrated")) {
                 TextView dehydrationMessage = new TextView(getContext());
                 dehydrationMessage.setText("It looks like you should be drinking a lot more water.\n" +
-                        " \n" + 
+                        " \n" +
                         "You should should try to drink 2 quarts of fluid, such as water, juice, or sports drinks (clear fluids, best), " +
                         "in 2 to 4 hours. But it is better to drink small amounts of fluid often (sips every few minutes), " +
                         "because drinking too much fluid at once can induce vomiting.");

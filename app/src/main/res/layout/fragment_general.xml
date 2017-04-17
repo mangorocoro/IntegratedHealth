@@ -284,6 +284,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/table_suggestions_title"
+        android:layout_above="@+id/bottom_navigation"
+        android:paddingBottom="40dp"
         android:background="@drawable/border">
         <TableLayout
             android:id="@+id/table_suggestions_content"
