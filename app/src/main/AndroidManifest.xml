@@ -30,7 +30,8 @@
         <activity android:name=".AddFoodFragment" />
         <activity android:name=".CustomMacrosActivity" />
         <activity android:name=".RecipeActivity" />
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".CustomListAdapter"></activity>
     </application>
 
 </manifest>
