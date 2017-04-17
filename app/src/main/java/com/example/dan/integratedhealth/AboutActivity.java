@@ -2,6 +2,7 @@ package com.example.dan.integratedhealth;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,16 +27,25 @@ public class AboutActivity extends Activity {
             R.drawable.applebanana
     };
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        CustomListAdapter adapter=new CustomListAdapter(this, itemname, imgid);
+        String[] descriptions = {
+                getString(R.string.general_button_description),
+                getString(R.string.fitness_button_description),
+                getString(R.string.diet_button_description),
+        };
+
+
+        CustomListAdapter adapter=new CustomListAdapter(this, itemname, imgid, descriptions);
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter);
 
-        list.setOnItemClickListener(new OnItemClickListener() {
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,

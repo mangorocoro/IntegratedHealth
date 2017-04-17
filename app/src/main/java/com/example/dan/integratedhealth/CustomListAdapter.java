@@ -13,14 +13,18 @@ import java.lang.reflect.Array;
 
 public class CustomListAdapter extends ArrayAdapter<String> {
 
+
     private final Activity context;
     private final String[] itemname;
     private final Integer[] imgid;
+    private final String[] description;
 
-    public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid) {
+
+    public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid, String[] description) {
         super(context, R.layout.aboutlist, itemname);
         // TODO Auto-generated constructor stub
 
+        this.description = description;
         this.context=context;
         this.itemname=itemname;
         this.imgid=imgid;
@@ -36,7 +40,7 @@ public class CustomListAdapter extends ArrayAdapter<String> {
 
         txtTitle.setText(itemname[position]);
         imageView.setImageResource(imgid[position]);
-        extratxt.setText("Description "+itemname[position]);
+        extratxt.setText(description[position]);
         return rowView;
 
     };
