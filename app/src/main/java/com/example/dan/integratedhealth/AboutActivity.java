@@ -18,13 +18,21 @@ public class AboutActivity extends Activity {
     String[] itemname ={
             "General",
             "Fitness",
-            "Diet"
+            "Diet",
+            "Home",
+            "Navbar General",
+            "Navbar Fitness",
+            "Navbar Diet"
     };
 
     Integer[] imgid={
             R.drawable.scale,
             R.drawable.runner,
-            R.drawable.applebanana
+            R.drawable.applebanana,
+            R.drawable.home_icon,
+            R.drawable.graph_icon,
+            R.drawable.run_icon,
+            R.drawable.diet_icon
     };
 
 
@@ -38,6 +46,10 @@ public class AboutActivity extends Activity {
                 getString(R.string.general_button_description),
                 getString(R.string.fitness_button_description),
                 getString(R.string.diet_button_description),
+                getString(R.string.home_bottom_nav_description),
+                getString(R.string.general_bottom_nav_description),
+                getString(R.string.fitness_bottom_nav_description),
+                getString(R.string.diet_bottom_nav_description),
         };
 
 

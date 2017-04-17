@@ -181,6 +181,10 @@
     <string name="general_button_description"> This button takes you to the General Data page </string>
     <string name="fitness_button_description"> This button takes you to the Fitness Data page </string>
     <string name="diet_button_description"> This button takes you to the Diet Data page </string>
+    <string name="home_bottom_nav_description"> This is the bottom nav bar buttom to take you to the Home page</string>
+    <string name="general_bottom_nav_description"> This is the bottom nav bar buttom to take you to the General Data page</string>
+    <string name="fitness_bottom_nav_description"> This is the bottom nav bar buttom to take you to the Fitness Data page</string>
+    <string name="diet_bottom_nav_description"> This is the bottom nav bar buttom to take you to the Diet Data page</string>
 
 
 
