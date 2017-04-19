@@ -64,7 +64,6 @@ public class AboutActivity extends Activity {
                                     int position, long id) {
                 // TODO Auto-generated method stub
                 String Slecteditem= itemname[+position];
-                Toast.makeText(getApplicationContext(), Slecteditem, Toast.LENGTH_SHORT).show();
 
             }
         });
