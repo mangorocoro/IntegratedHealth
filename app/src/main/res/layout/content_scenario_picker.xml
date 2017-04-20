@@ -30,7 +30,9 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:paddingTop="@dimen/bottom_navigation_min_width"/>
 
     <TextView
         android:id="@+id/scenario_description_box"
