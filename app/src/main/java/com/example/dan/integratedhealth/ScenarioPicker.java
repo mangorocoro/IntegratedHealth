@@ -11,6 +11,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -40,32 +41,40 @@ public class ScenarioPicker extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int pos = spinner.getSelectedItemPosition();
                 final TextView scenarioDescription = (TextView)findViewById(R.id.scenario_description_box);
+                ImageView img = (ImageView) findViewById(R.id.scenario_headshot);
                 switch(pos){
                     case 0:
+                        img.setImageResource(R.drawable.semantic_ui_middleagedasian);
                         scenarioDescription.setText(R.string.fitness_robert);
                         selectedScenario = pos+1;
                         break;
                     case 1:
+                        img.setImageResource(R.drawable.semantic_ui_beardedwavyhair);
                         scenarioDescription.setText(R.string.fitness_dave);
                         selectedScenario = pos+1;
                         break;
                     case 2:
+                        img.setImageResource(R.drawable.semantic_ui_asianmom);
                         scenarioDescription.setText(R.string.diet_riley);
                         selectedScenario = pos+1;
                         break;
                     case 3:
+                        img.setImageResource(R.drawable.semantic_ui_earrings);
                         scenarioDescription.setText(R.string.diet_vanessa);
                         selectedScenario = pos+1;
                         break;
                     case 4:
+                        img.setImageResource(R.drawable.semantic_ui_asianglasses);
                         scenarioDescription.setText(R.string.general_george);
                         selectedScenario = pos+1;
                         break;
                     case 5:
+                        img.setImageResource(R.drawable.semantic_ui_asianguybangs);
                         scenarioDescription.setText(R.string.general_jimmy);
                         selectedScenario = pos+1;
                         break;
                     case 6:
+                        img.setImageResource(R.drawable.semantic_ui_purplehairhipstergirl);
                         scenarioDescription.setText(R.string.new_user);
                         selectedScenario = pos+1;
                         break;
