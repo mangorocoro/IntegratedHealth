@@ -372,7 +372,7 @@ public class GeneralFragment extends Fragment {
                 TextView chilloutMusic = new TextView(getContext());
                 chilloutMusic.setClickable(true);
                 chilloutMusic.setMovementMethod(LinkMovementMethod.getInstance());
-                String musicLink = "<a href='https://youtu.be/yIYLbf-qHfY'> Chilled Cow Calm Down Music </a>";
+                String musicLink = "<a href='https://youtu.be/xrbrQhpvn8E'> Chilled Cow Calm Down Music </a>";
                 chilloutMusic.setText(Html.fromHtml(musicLink));
 
                 suggestionsBox.addView(chilloutMessage);
