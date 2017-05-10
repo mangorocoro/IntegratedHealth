@@ -585,6 +585,7 @@ public class DietFragment extends DialogFragment implements View.OnClickListener
             TableRow new_row = new TableRow(getActivity());
             TextView new_food_suggestion = new TextView(getActivity());
             Button add_food_suggestion = new Button(getActivity());
+            add_food_suggestion.setBackgroundResource(android.R.drawable.btn_default);
             add_food_suggestion.setGravity(Gravity.RIGHT);
             add_food_suggestion.setText("Add Me!");
             //add_food_suggestion.setBackgroundResource(android.R.drawable.ic_menu_add);
@@ -608,7 +609,7 @@ public class DietFragment extends DialogFragment implements View.OnClickListener
                 }
             });
 
-
+            view_recipe_suggestion.setBackgroundResource(android.R.drawable.btn_default);
             view_recipe_suggestion.setGravity(Gravity.RIGHT);
             view_recipe_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT,1f));
             view_recipe_suggestion.setText("Recipe");
