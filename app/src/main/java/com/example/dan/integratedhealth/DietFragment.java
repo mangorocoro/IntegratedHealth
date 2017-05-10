@@ -289,9 +289,9 @@ public class DietFragment extends DialogFragment implements View.OnClickListener
         custom_button.setOnClickListener(this);
 
         ProgressBar progress_bar = (ProgressBar) root_view.findViewById(R.id.diet_progress_bar);
-        if (diet.get("startingweight") != null && diet.get("goalweight") != null && general.get("weight") != null) {
-            progress_bar.setProgress((int)calculate_progress(Double.parseDouble(diet.get("startingweight")), Double.parseDouble(general.get("weight")), Double.parseDouble(diet.get("goalweight"))));
-            System.out.println("aaaa" + (int)calculate_progress(Double.parseDouble(diet.get("startingweight")), Double.parseDouble(general.get("weight")), Double.parseDouble(diet.get("goalweight"))));
+        if (diet.get("startingweight") != null && diet.get("goalweight") != null && general.get("weight") != null && diet.get("startingweight").length() < 4 && diet.get("goalweight").length() < 4) {
+            progress_bar.setProgress((int) calculate_progress(Double.parseDouble(diet.get("startingweight")), Double.parseDouble(general.get("weight")), Double.parseDouble(diet.get("goalweight"))));
+            System.out.println("aaaa" + (int) calculate_progress(Double.parseDouble(diet.get("startingweight")), Double.parseDouble(general.get("weight")), Double.parseDouble(diet.get("goalweight"))));
         } else {
             progress_bar.setProgress(0);
         }
@@ -402,6 +402,7 @@ public class DietFragment extends DialogFragment implements View.OnClickListener
         Button atkins_button = (Button) root_view.findViewById(R.id.atkins_button);
         Button keto_button = (Button) root_view.findViewById(R.id.keto_button);
         Button custom_button = (Button) root_view.findViewById(R.id.custom_button);
+        TextView diet_description = (TextView) root_view.findViewById(R.id.diet_description);
 
         switch(diet_plan){
             case "traditional":
@@ -410,6 +411,7 @@ public class DietFragment extends DialogFragment implements View.OnClickListener
                 atkins_button.setBackgroundResource(android.R.drawable.btn_default);
                 keto_button.setBackgroundResource(android.R.drawable.btn_default);
                 custom_button.setBackgroundResource(android.R.drawable.btn_default);
+                diet_description.setText("Traditional - Standard diet");
                 break;
             case "vegetarian":
                 traditional_button.setBackgroundResource(android.R.drawable.btn_default);
@@ -417,6 +419,7 @@ public class DietFragment extends DialogFragment implements View.OnClickListener
                 atkins_button.setBackgroundResource(android.R.drawable.btn_default);
                 keto_button.setBackgroundResource(android.R.drawable.btn_default);
                 custom_button.setBackgroundResource(android.R.drawable.btn_default);
+                diet_description.setText("Vegetarian - Focus on vegetables!");
                 break;
             case "atkins":
                 traditional_button.setBackgroundResource(android.R.drawable.btn_default);
@@ -424,6 +427,8 @@ public class DietFragment extends DialogFragment implements View.OnClickListener
                 atkins_button.setBackgroundColor(Color.CYAN);
                 keto_button.setBackgroundResource(android.R.drawable.btn_default);
                 custom_button.setBackgroundResource(android.R.drawable.btn_default);
+                diet_description.setText("Atkins - Eat as many protein and fats, just avoid carbs!");
+                diet_description.setTextSize(13);
                 break;
             case "keto":
                 traditional_button.setBackgroundResource(android.R.drawable.btn_default);
@@ -431,6 +436,7 @@ public class DietFragment extends DialogFragment implements View.OnClickListener
                 atkins_button.setBackgroundResource(android.R.drawable.btn_default);
                 keto_button.setBackgroundColor(Color.CYAN);
                 custom_button.setBackgroundResource(android.R.drawable.btn_default);
+                diet_description.setText("Keto - Low carbs, high fat, avoid excessive protein!");
                 break;
             case "custom":
                 traditional_button.setBackgroundResource(android.R.drawable.btn_default);
@@ -438,6 +444,7 @@ public class DietFragment extends DialogFragment implements View.OnClickListener
                 atkins_button.setBackgroundResource(android.R.drawable.btn_default);
                 keto_button.setBackgroundResource(android.R.drawable.btn_default);
                 custom_button.setBackgroundColor(Color.CYAN);
+                diet_description.setText("Custom - whatever you like!");
                 break;
         }
     }
@@ -578,6 +585,7 @@ public class DietFragment extends DialogFragment implements View.OnClickListener
             TableRow new_row = new TableRow(getActivity());
             TextView new_food_suggestion = new TextView(getActivity());
             Button add_food_suggestion = new Button(getActivity());
+            add_food_suggestion.setBackgroundResource(android.R.drawable.btn_default);
             add_food_suggestion.setGravity(Gravity.RIGHT);
             add_food_suggestion.setText("Add Me!");
             //add_food_suggestion.setBackgroundResource(android.R.drawable.ic_menu_add);
@@ -601,7 +609,7 @@ public class DietFragment extends DialogFragment implements View.OnClickListener
                 }
             });
 
-
+            view_recipe_suggestion.setBackgroundResource(android.R.drawable.btn_default);
             view_recipe_suggestion.setGravity(Gravity.RIGHT);
             view_recipe_suggestion.setLayoutParams(new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT,1f));
             view_recipe_suggestion.setText("Recipe");
