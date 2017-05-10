@@ -47,6 +47,8 @@ public class GeneralFragment extends Fragment {
     private HashMap<String, String> general;
     TextView heightContent;
     TextView weightContent;
+    int syncMessage;
+    int syncTitle;
 
     @Nullable
     @Override
@@ -71,75 +73,81 @@ public class GeneralFragment extends Fragment {
         actionBar.setTitle("General Health for " + meta.get("name"));
 
 
+
         if (meta.get("name").equals("newuser")) {
-
-            TextView heartRateContentView = (TextView) rootView.findViewById(R.id.heartrate_content);
-            heartRateContentView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle(R.string.heartrate_sync_title)
-                            .setMessage(R.string.heartrate_sync_message)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // continue with delete
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // do nothing
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-            });
-
-
-            TextView gutContentView = (TextView) rootView.findViewById(R.id.guthealth_content);
-            gutContentView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle(R.string.gut_sync_title)
-                            .setMessage(R.string.gut_sync_message)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // continue with delete
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // do nothing
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-            });
-
-            TextView hydrationContentView = (TextView) rootView.findViewById(R.id.hydration_content);
-            hydrationContentView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle(R.string.hydration_sync_title)
-                            .setMessage(R.string.hydration_sync_message)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // continue with delete
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // do nothing
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-            });
+            syncMessage = R.string.heartrate_sync_message;
+            syncTitle = R.string.heartrate_sync_title;
+        } else {
+            syncMessage = R.string.syncing;
+            syncTitle = R.string.syncing_title;
         }
+
+        TextView heartRateContentView = (TextView) rootView.findViewById(R.id.heartrate_content);
+        heartRateContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle(syncTitle)
+                        .setMessage(syncMessage)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
+
+        TextView gutContentView = (TextView) rootView.findViewById(R.id.guthealth_content);
+        gutContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.gut_sync_title)
+                        .setMessage(R.string.gut_sync_message)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
+        TextView hydrationContentView = (TextView) rootView.findViewById(R.id.hydration_content);
+        hydrationContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.hydration_sync_title)
+                        .setMessage(R.string.hydration_sync_message)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
 
         ImageView poopImage = (ImageView) rootView.findViewById(R.id.poop_id);
 
@@ -372,7 +380,7 @@ public class GeneralFragment extends Fragment {
                 TextView chilloutMusic = new TextView(getContext());
                 chilloutMusic.setClickable(true);
                 chilloutMusic.setMovementMethod(LinkMovementMethod.getInstance());
-                String musicLink = "<a href='https://youtu.be/yIYLbf-qHfY'> Chilled Cow Calm Down Music </a>";
+                String musicLink = "<a href='https://youtu.be/8DDHulO485k'> Calm Down Music </a>";
                 chilloutMusic.setText(Html.fromHtml(musicLink));
 
                 suggestionsBox.addView(chilloutMessage);

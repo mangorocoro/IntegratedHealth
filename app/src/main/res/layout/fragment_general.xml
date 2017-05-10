@@ -40,14 +40,22 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_sync_black_24dp"
+                    android:layout_weight="0.5"
+                    android:paddingRight="5dp" />
                 <TextView
                     android:id="@+id/heartrate_content"
                     android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="90 bpm" />
+                    android:text="90 bpm"
+                    android:layout_weight="0.5"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -84,7 +92,8 @@
                     android:id="@+id/height_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="5 11" />
+                    android:text="5 11"
+                    android:background="@drawable/border_style"/>
             </LinearLayout>
         </TableRow>
 
@@ -131,7 +140,8 @@
                     android:id="@+id/weight_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="170 lbs" />
+                    android:text="170 lbs"
+                    android:background="@drawable/border_style"/>
             </LinearLayout>
 
             <LinearLayout
@@ -209,14 +219,22 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_sync_black_24dp"
+                    android:layout_weight="0.5"
+                    android:paddingRight="5dp" />
 
                 <TextView
                     android:id="@+id/guthealth_content"
                     android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Healthy" />
+                    android:text="Healthy"
+                    android:layout_weight="0.5"/>
             </LinearLayout>
 
             <LinearLayout
@@ -247,14 +265,21 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_sync_black_24dp"
+                    android:layout_weight="0.5"
+                    android:paddingRight="5dp" />
 
                 <TextView
                     android:id="@+id/hydration_content"
                     android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hydrated" />
+                    android:text="Hydrated"
+                    android:layout_weight="0.5"/>
             </LinearLayout>
         </TableRow>
 

@@ -124,12 +124,20 @@
         Please sync your heartrate monitor with this app.
     </string>
 
+    <string name="syncing">
+        Syncing....
+    </string>
+
+    <string name="syncing_title">
+        Syncing With Device
+    </string>
+
     <string name="heartrate_sync_title">
         Sync heartrate device
     </string>
 
     <string name="hydration_sync_message">
-        Please sync your hydratio monitor with this app.
+        Please sync your hydration monitor with this app.
     </string>
 
     <string name="hydration_sync_title">
