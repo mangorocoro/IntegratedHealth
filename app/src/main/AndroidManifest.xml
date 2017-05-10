@@ -26,10 +26,12 @@
         <activity
             android:name=".ScenarioPicker"
             android:label="@string/title_activity_scenario_picker"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".AddFoodFragment"/>
-        <activity android:name=".CustomMacrosActivity"/>
-        <activity android:name=".RecipeActivity"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddFoodFragment" />
+        <activity android:name=".CustomMacrosActivity" />
+        <activity android:name=".RecipeActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".CustomListAdapter"></activity>
     </application>
 
 </manifest>

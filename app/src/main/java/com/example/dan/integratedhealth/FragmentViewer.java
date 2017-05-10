@@ -12,6 +12,7 @@ import android.view.View;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -21,6 +22,10 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
     private String prev_class;
     HashMap<String, HashMap> taskScenarioData;
     HashMap<String, HashMap> meta;
+    HashMap<String, ArrayList<String>> exercise_list;
+    public String current_exercise;
+    public String list_exercise;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,9 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
 
         //extract hashtable from bundle passed in
         taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
+        exercise_list = new HashMap<String, ArrayList<String>>();
+        current_exercise = "";
+        list_exercise = "";
 
 
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
@@ -39,9 +47,6 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
 
         prev_class = getIntent().getStringExtra("intent");
         this.createNavItems();
-
-
-
 
     }
 
@@ -89,17 +94,15 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
         switch(position) {
             /* navigate to home */
             case 0:
-                System.out.println("case 0");
 
                 Intent intent = new Intent(FragmentViewer.this, HomeScreen.class);
                 intent.putExtra("currentScenario", meta.get("scenarioName") );
+                intent.putExtra("taskScenarioData", taskScenarioData);
                 startActivity(intent);
                 break;
 
             /* navigate to general */
             case 1:
-                System.out.println("case 1");
-
                 GeneralFragment generalFragment = new GeneralFragment();
                 Bundle generalData = new Bundle();
                 taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
@@ -114,8 +117,6 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
 
             /* navigate to fitness */
             case 2:
-                System.out.println("case 2");
-
                 FitnessFragment fitnessFragment = new FitnessFragment();
                 Bundle fitnessData = new Bundle();
                 taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
@@ -130,8 +131,6 @@ public class FragmentViewer extends AppCompatActivity implements AHBottomNavigat
 
             /* navigate to diet */
             case 3:
-                System.out.println("case 3");
-
                 DietFragment dietFragment = new DietFragment();
                 Bundle dietData = new Bundle();
                 taskScenarioData = (HashMap<String, HashMap>) getIntent().getSerializableExtra("scenarioData");
